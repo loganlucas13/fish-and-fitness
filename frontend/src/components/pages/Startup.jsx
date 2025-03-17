@@ -4,7 +4,7 @@ function Startup() {
     return (
         <>
             <div>startup</div>
-            <Button />
+            <Button buttonText="button here" />
         </>
     );
 }
