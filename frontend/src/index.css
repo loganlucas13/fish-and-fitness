@@ -1,7 +1,12 @@
 @import 'tailwindcss';
 
+@font-face {
+    font-family: 'Sniglet';
+    src: url('./assets/fonts/Sniglet-Regular.ttf');
+}
+
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Sniglet';
     line-height: 1.5;
     font-weight: 400;
 
@@ -16,7 +21,8 @@
     --land-medium: #a4bf90;
     --land-light: #dfe3cd;
 
-    --foreground: #ede9dc;
+    --foreground: #edf1d6;
+
     --menu-light: #fefae0;
     --menu-dark: #d4a373;
     --menu-background: #faedcd;

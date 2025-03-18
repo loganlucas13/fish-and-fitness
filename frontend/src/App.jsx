@@ -5,7 +5,7 @@ import Game from './components/pages/Game';
 function App() {
     return (
         <>
-            <div>
+            <div className="flex flex-col justify-center items-center min-h-screen">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Startup />}></Route>
