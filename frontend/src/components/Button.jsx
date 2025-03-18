@@ -1,4 +1,11 @@
-const Button = ({ buttonText, icon, variant, onClick, disabled }) => {
+const Button = ({
+    buttonText,
+    icon,
+    iconPosition,
+    variant,
+    onClick,
+    disabled,
+}) => {
     // handler for button clicks
     const handleClick = () => {
         if (disabled) {
@@ -14,7 +21,7 @@ const Button = ({ buttonText, icon, variant, onClick, disabled }) => {
     // styling for different variants
     const variantStyles = {
         primary:
-            'bg-[var(--water-dark)] text-[var(--foreground)] text-lg border-[var(--foreground)] border-2 shadow-lg',
+            'bg-[var(--foreground)] text-[var(--water-dark)] text-lg shadow-lg',
     };
 
     if (!variant) {
@@ -23,12 +30,18 @@ const Button = ({ buttonText, icon, variant, onClick, disabled }) => {
     }
     const selectedVariantStyle = variantStyles[variant];
 
+    if (!iconPosition && icon) {
+        iconPosition = 'left';
+    }
     return (
         <>
             <button onClick={handleClick} className="group">
                 <div className={`${defaultStyling} ${selectedVariantStyle}`}>
+                    {icon && iconPosition === 'left' && (
+                        <span className="pr-1">{icon}</span>
+                    )}
                     {buttonText}
-                    {icon && (
+                    {icon && iconPosition === 'right' && (
                         <span className="pl-1 translate-x-1 group-hover:translate-x-2 transition-all">
                             {icon}
                         </span>

@@ -11,8 +11,15 @@
     font-weight: 400;
 
     color-scheme: light dark;
-    background-color: #6c95b1;
+    background: linear-gradient(
+        to bottom,
+        var(--water-light) 0%,
+        var(--water-medium) 20%,
+        var(--water-dark) 50%,
+        var(--water-deep) 90%
+    );
 
+    --water-deep: #4a7089;
     --water-dark: #6c95b1;
     --water-medium: #9cbecd;
     --water-light: #c0ccd5;

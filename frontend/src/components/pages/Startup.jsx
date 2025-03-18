@@ -12,6 +12,7 @@ function Startup() {
                     <Button
                         buttonText="Start Fishing!"
                         icon={<ArrowBigRightDash />}
+                        iconPosition="right"
                     />
                 </Link>
             </div>
