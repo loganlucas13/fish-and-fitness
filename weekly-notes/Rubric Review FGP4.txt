@@ -1,0 +1,77 @@
+Rubric Checking 3/18/25
+
+GitHub revisions and contributions:
+All team members have put in nearly the same amount of effort in contributions since the last FGP check-in:
+Logan: Already did a bunch of commit pushes
+Check: Jonathan, Ron
+
+The team has met at least three times:
+Met 3 times
+Did not count amount of times talked over text
+
+Each team member was present at the project check-in meeting:
+Hopefully!
+
+Team shares how they plan on continuing or improving the balance of project work:
+Already listed in the weekly notes:
+Logan is the frontend
+Ron and I will manage the storage of fishes and the API use of health apps
+We all constantly talk about the distribution and foundations on the website
+
+Each team member has contributed at least once on GitHub since the last fgp check-in
+Ron should commit something soon
+
+GitHub commit messages are clear and meaningful:
+Should be fine for now, make it a habit until the project ends or more
+
+Current expected points without any extra effort: 4/5
+============================================================================
+Full stack application idea and scope:
+Idea solves a real problem that contributes positively to society and the community:
+The point of the project is to extend the use of the health app that you can find in your phone so that you would be more inclined to use it. For instance, it would be some sort of a minigame extension to how many steps you would take, so taking 5k steps would let you fish 5 times. There are already many apps or guides that attempt to restrict the use of phone use, but our plan with the project is to enable healthy life choices. This is the main plan, but there could be room for additional features, which could include restricting screen time.
+
+The team shares at a minimum a rough sketch or written plan of the application's layout, features, and functionality:
+Figma works with the frontend and UI of the project for a first draft
+We'll be using an api to connect with the website to a health app. Highly likely it's the Strava API
+
+Team shares any possible ethical issues related to their solution and how they will reduce any negative impacts:
+Refer to the first paragraph above for the full stack application idea and scope
+
+Team has a breakdown of what they plan to achieve each week before the project deadline
+Logan: Consistently adds in UI/frontend content
+Ron/Jonathan: This and next week will be centered on API management and research. Two weeks later (likely), constructing data structures/data storage
+Jonathan: Observing and watching deadlines and adapting to any change necessary. Test case construction possibility for final two weeks.
+Final week: All 3 can contribute to UI design / vanity construction
+
+Current expected points without any extra effort: 3.75/5
+============================================================================
+Data source and backend integration:
+The data source is clearly identified and appropriate for the application:
+We will likely either use a SQLite or MySQL database to store the user.
+Fish details would either be stored in a txt file to be parsed through, or another SQLite or MySQL database.
+
+Team explains how data will be pulled into the backend:
+Use the Strava API to give the steps taken data (as an example) and interact with the health database/file
+The fish file/database will be used to send over the data of encyclopedia
+
+Team describes any necessary data processing or cleaning before use:
+Fish file would have the drop rate, the name of the fish, possibly some descriptions, maybe some weight
+The health app's data would be pulled for generally the steps taken for initial construction, but more data could be taken from it in the future
+
+Current expected points without any extra effort: Potentially 5/5?
+============================================================================
+Choice and fit of data structures:
+Application uses at least two advanced data structures
+#1: Using a trie to go search through all of the fishes
+#2: Heap for a possible "Hall of Fish" where you get the three rarest or heaviest fish.
+
+Usage of each advanced data structure in application is explained and why it is optimal:
+#1: Using a trie to go search through all of the fishes, is very good to autocomplete and find the fishes. HashMap Trie's time is O(k), space is O(T), where k is length of word, and T is all words in trie
+#2: heap, for instance, nlargest, is runtime O(nlogk), which is pretty effective
+
+alternative data structures that were considered but ultimately not chosen for each use case are explained:
+a set is not going to be useful as duplicates of fishes and info can be used
+hashmap is probably a useful data structure to store some data from a file, would need further implementation and drafting to potentially use
+^It will likely still be used, just not for data storage
+
+Current expected points without any extra effort: 3.25/5
