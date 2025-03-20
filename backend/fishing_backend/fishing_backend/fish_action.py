@@ -1,6 +1,23 @@
 import random
 import fish_init
 
+class Bait:
+
+    def __init__(self, name, tier, catch_modifier, weight_modifier_range):
+        self.name = name
+        self.tier = tier
+        self.catch_modifier = catch_modifier  # Adjusts chance of catching rarer fish
+        self.weight_modifier_range = weight_modifier_range  # Affects fish weight
+
+baits = {
+    "Base Bait": Bait("Base Bait", "Base", {"Common": 1.0, "Rare": 0.5, "Epic": 0.2, "Mythical": 0.1, "Legendary": 0.05}, (0.9, 1.0)),
+    "Common Pro Bait": Bait("Common Pro Bait", "Common", {"Common": 1.5, "Rare": 1.0, "Epic": 0.6, "Mythical": 0.3, "Legendary": 0.1}, (1.0, 1.1)),
+    "Rare Pro Bait": Bait("Rare Pro Bait", "Rare", {"Common": 1.0, "Rare": 1.5, "Epic": 1.2, "Mythical": 0.7, "Legendary": 0.3}, (1.05, 1.2)),
+    "Epic Pro Bait": Bait("Epic Pro Bait", "Epic", {"Common": 0.8, "Rare": 1.0, "Epic": 1.5, "Mythical": 1.2, "Legendary": 0.5}, (1.1, 1.3)),
+    "Mythical Pro Bait": Bait("Mythical Pro Bait", "Mythical", {"Common": 0.5, "Rare": 0.8, "Epic": 1.2, "Mythical": 1.5, "Legendary": 1.0}, (1.2, 1.4)),
+    "Legendary Pro Bait": Bait("Legendary Pro Bait", "Legendary", {"Common": 0.3, "Rare": 0.5, "Epic": 1.0, "Mythical": 1.3, "Legendary": 1.5}, (1.3, 1.5)),
+}
+
 class FishingAction:
     def __init__(self, location):
         self.location_data = getattr(fish_init, location)  # Get fish data from the module
@@ -15,8 +32,8 @@ class FishingAction:
             "Thunderstorm": (1.1, 1.3),
             "Foggy": (1.0, 1.2),
             "Windy": (0.85, 1.0),
-            "Cold Weather": (0.8, 1.0),
-            "Hot Weather": (0.9, 1.05),
+            "Snowy": (0.8, 1.0),
+            "Heatwave": (0.9, 1.05),
         }
         weather = random.choice(list(weather_conditions.keys()))
         return weather_conditions[weather]
