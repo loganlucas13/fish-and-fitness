@@ -21,7 +21,9 @@ const Button = ({
     // styling for different variants
     const variantStyles = {
         primary:
-            'bg-[var(--foreground)] text-[var(--water-dark)] text-lg shadow-lg',
+            'bg-[var(--foreground)] text-[var(--water-dark)] text-lg shadow-lg justify-center',
+        secondary:
+            'bg-[var(--water-dark)] text-[var(--menu-light)] text-lg shadow-lg justify-center',
     };
 
     if (!variant) {
