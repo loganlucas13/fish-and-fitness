@@ -8,7 +8,7 @@ function Startup() {
         <>
             <div className="flex flex-col items-center justify-center gap-6">
                 <Title />
-                <Link to="/game">
+                <Link to="/companion">
                     <Button
                         buttonText="Start Fishing!"
                         icon={<ArrowBigRightDash />}

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import Startup from './components/pages/Startup';
-import Game from './components/pages/Game';
+import Companion from './components/pages/Companion';
 
 function App() {
     return (
@@ -9,7 +9,10 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Startup />}></Route>
-                        <Route path="/game" element={<Game />}></Route>
+                        <Route
+                            path="/companion"
+                            element={<Companion />}
+                        ></Route>
                     </Routes>
                 </BrowserRouter>
             </div>
