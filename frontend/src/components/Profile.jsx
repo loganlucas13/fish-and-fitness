@@ -15,7 +15,9 @@ const Profile = ({ username }) => {
                                 {username}
                             </h1>
 
-                            <p>{progress}% to next level</p>
+                            <p className="text-[var(--foreground)]">
+                                {progress}% to next level
+                            </p>
                         </div>
                         <ProgressBar progress={progress} />
                     </div>

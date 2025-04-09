@@ -10,8 +10,15 @@ const Login = ({ onLogin, onCreate }) => {
 
     const handleLogin = () => {
         let valid = true;
+        if (!loginUsername) {
+            valid = false;
+        } else if (!loginPassword) {
+            valid = false;
+        }
+
         // add in checks
-        // ex) already in use, no input
+        // ex) already in use
+
         if (valid) {
             onLogin(loginUsername, loginPassword);
         }
@@ -20,8 +27,15 @@ const Login = ({ onLogin, onCreate }) => {
 
     const handleCreate = () => {
         let valid = true;
+        if (!createUsername) {
+            valid = false;
+        } else if (!createPassword) {
+            valid = false;
+        }
+
         // add in checks
         // ex) already in use, no input
+
         if (valid) {
             onCreate(createUsername, createPassword);
         }
@@ -48,6 +62,7 @@ const Login = ({ onLogin, onCreate }) => {
                             className="focus:outline-none"
                             placeholder="password..."
                             onChange={(e) => setCreatePassword(e.target.value)}
+                            type="password"
                         ></input>
                     </div>
 
@@ -77,6 +92,7 @@ const Login = ({ onLogin, onCreate }) => {
                             onChange={(e) => {
                                 setLoginPassword(e.target.value);
                             }}
+                            type="password"
                         ></input>
                     </div>
 

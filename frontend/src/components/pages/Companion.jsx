@@ -37,6 +37,21 @@ function Companion() {
         // add code to create user by adding them to database
     };
 
+    const fishList = [
+        { name: 'Salmon', timesCaught: 3 },
+        { name: 'Trout', timesCaught: 0 },
+        { name: 'Rockfish', timesCaught: 1 },
+        { name: 'Sea Bass', timesCaught: 25 },
+        { name: 'Gar', timesCaught: 2 },
+        { name: 'Great White Shark', timesCaught: 0 },
+        { name: 'Tuna', timesCaught: 2 },
+        { name: 'Octopus', timesCaught: 4 },
+        { name: 'Coelacanth', timesCaught: 0 },
+        { name: 'Catfish', timesCaught: 9 },
+        { name: 'Hammerhead Shark', timesCaught: 0 },
+        { name: 'Shrimp', timesCaught: 5 },
+    ];
+
     return (
         <>
             <div className="w-full h-screen p-4">
@@ -90,7 +105,9 @@ function Companion() {
                         )}
                     </div>
 
-                    {showFishapedia && <FishapediaDisplay />}
+                    {showFishapedia && (
+                        <FishapediaDisplay fishList={fishList} />
+                    )}
                     {showGoals && <GoalsDisplay />}
                     {showStats && <StatsDisplay />}
                     {showBackpack && <BackpackDisplay />}
