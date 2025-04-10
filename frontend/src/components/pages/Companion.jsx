@@ -52,6 +52,13 @@ function Companion() {
         { name: 'Shrimp', timesCaught: 5 },
     ];
 
+    const goalList = [
+        { name: 'Walk 2 miles', reward: 1, progress: 50 },
+        { name: 'Bike 3 miles', reward: 1, progress: 20 },
+        { name: 'Run 1 mile', reward: 1, progress: 30 },
+        { name: 'Walk 5 miles', reward: 2, progress: 10 },
+    ];
+
     return (
         <>
             <div className="w-full h-screen p-4">
@@ -108,7 +115,7 @@ function Companion() {
                     {showFishapedia && (
                         <FishapediaDisplay fishList={fishList} />
                     )}
-                    {showGoals && <GoalsDisplay />}
+                    {showGoals && <GoalsDisplay goalList={goalList} />}
                     {showStats && <StatsDisplay />}
                     {showBackpack && <BackpackDisplay />}
                 </div>

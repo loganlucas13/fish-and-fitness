@@ -2,7 +2,7 @@ const FishapediaDisplay = ({ fishList }) => {
     return (
         <>
             <div className="absolute w-2/5 h-3/4 translate-y-20 bg-[var(--foreground)] border-2 border-[var(--water-dark)] rounded-xl shadow-xl">
-                <div className="flex items-center justify-center bg-[var(--menu-light)] rounded-xl">
+                <div className="flex items-center justify-center bg-[var(--menu-light)] rounded-t-xl">
                     <h1 className="w-full text-center text-2xl text-[var(--water-dark)] px-4 py-2 ">
                         fishapedia
                     </h1>
