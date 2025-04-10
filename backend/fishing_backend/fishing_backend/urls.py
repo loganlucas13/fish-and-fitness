@@ -16,9 +16,9 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path
-from fish_collection import fishmain
+from fishing_backend.fish_collection import fishmain
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('fishes/', fishmain),
+    path('', fishmain),
 ]

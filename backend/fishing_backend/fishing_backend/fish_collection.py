@@ -74,14 +74,10 @@ def database_extraction():
 
 
 #===================FUNCTION EXECUTION==========================
-def fishmain():
+def fishmain(request):
     database_creation()
     fishes = database_extraction()
     if not fishes:
         print("Didn't extract fish data")
-        return
-    json = JsonResponse(fishes)
-    return json
-
-if __name__ == "__main__":
-    fishmain()
+        return JsonResponse({'error': "No fish"}, status=404)
+    return JsonResponse(fishes, safe=False)
