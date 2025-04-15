@@ -22,7 +22,7 @@ const GoalsDisplay = ({ goalList }) => {
 const Goal = ({ goalData }) => {
     return (
         <>
-            <div className="flex flex-row items-center bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] px-4 py-2 rounded-xl place-content-between gap-8">
+            <div className="flex flex-row items-center bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] px-4 py-2 rounded-xl place-content-between gap-8 shadow-lg">
                 <span className="text-lg font-bold">{goalData.name}</span>
                 <ProgressBar progress={goalData.progress} />
                 <span>reward: {goalData.reward} crate(s) </span>

@@ -37,6 +37,10 @@ function Companion() {
         // add code to create user by adding them to database
     };
 
+    const openItem = (item) => {
+        console.log(item.name);
+    };
+
     const fishList = [
         { name: 'Salmon', timesCaught: 3 },
         { name: 'Trout', timesCaught: 0 },
@@ -57,6 +61,26 @@ function Companion() {
         { name: 'Bike 3 miles', reward: 1, progress: 20 },
         { name: 'Run 1 mile', reward: 1, progress: 30 },
         { name: 'Walk 5 miles', reward: 2, progress: 10 },
+        { name: 'Walk 2 miles', reward: 1, progress: 50 },
+        { name: 'Bike 3 miles', reward: 1, progress: 20 },
+        { name: 'Run 1 mile', reward: 1, progress: 30 },
+        { name: 'Walk 5 miles', reward: 2, progress: 10 },
+    ];
+
+    const statList = [
+        { name: 'Total distance walked', amount: 10, label: 'miles' },
+        { name: 'Total distance ran', amount: 3, label: 'miles' },
+        { name: 'Total distance biked', amount: 15, label: 'miles' },
+        { name: 'Total goals met', amount: 10, label: 'goals' },
+    ];
+
+    const inventoryList = [
+        { id: 0, name: 'Fish Crate', rarity: 'Common' },
+        { id: 1, name: 'Fish Crate', rarity: 'Rare' },
+        { id: 2, name: 'Fish Crate', rarity: 'Legendary' },
+        { id: 3, name: 'Fish Crate', rarity: 'Common' },
+        { id: 4, name: 'Fish Crate', rarity: 'Common' },
+        { id: 5, name: 'Fish Crate', rarity: 'Common' },
     ];
 
     return (
@@ -116,8 +140,13 @@ function Companion() {
                         <FishapediaDisplay fishList={fishList} />
                     )}
                     {showGoals && <GoalsDisplay goalList={goalList} />}
-                    {showStats && <StatsDisplay />}
-                    {showBackpack && <BackpackDisplay />}
+                    {showStats && <StatsDisplay statList={statList} />}
+                    {showBackpack && (
+                        <BackpackDisplay
+                            inventoryList={inventoryList}
+                            handleOpening={openItem}
+                        />
+                    )}
                 </div>
             </div>
         </>
