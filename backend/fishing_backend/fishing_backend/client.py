@@ -34,5 +34,6 @@ parameter = {}
 parameter['per_page'] = 200
 parameter['page'] = 1
 my_dataset = requests.get(activities_url, headers = header, params = parameter).json()
-print(my_dataset)
+# print(my_dataset)
 # print(my_dataset[0]["distance"]) #gets the distance of an activity
+print(my_dataset[0])
