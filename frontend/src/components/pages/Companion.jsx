@@ -19,22 +19,76 @@ function Companion() {
     const [showStats, setShowStats] = useState(false);
     const [showBackpack, setShowBackpack] = useState(false);
 
-    const loginUser = (username, password) => {
+    const loginUser = async (username, password) => {
         console.log(
             'creating user!\nusername: ' + username + '\npassword: ' + password
         );
-        setUsername(username);
-        setPassword(password);
 
-        // check password with info from database, then hide login page if correct
-        setShowLogin(false);
+        try {
+            console.log(
+                'logging in user!\nusername: ' +
+                    username +
+                    '\npassword: ' +
+                    password
+            );
+            const response = await fetch('http://localhost:8000/user/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('user logged in: ', data);
+                setUsername(username);
+                setPassword(password);
+                setShowLogin(false);
+            } else {
+                console.error('user not logged in: ', data);
+                setShowLogin(true);
+            }
+        } catch (error) {
+            console.error('request failed: ', error);
+            setShowLogin(true);
+        }
+        console.log(showLogin);
     };
 
-    const createUser = (username, password) => {
-        console.log(
-            'creating user!\nusername: ' + username + '\npassword: ' + password
-        );
-        // add code to create user by adding them to database
+    const createUser = async (username, password) => {
+        try {
+            console.log(
+                'creating user!\nusername: ' +
+                    username +
+                    '\npassword: ' +
+                    password
+            );
+            const response = await fetch('http://localhost:8000/user/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('user created: ', data);
+            } else {
+                console.error('user not created: ', data);
+            }
+        } catch (error) {
+            console.error('request failed: ', error);
+        }
     };
 
     const openItem = (item) => {
