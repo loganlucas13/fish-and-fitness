@@ -17,8 +17,14 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 from fishing_backend.fish_collection import fishmain
+from fishing_backend.fish_collection import usermain
 
+#NOTE:
+##when you run the server, when you reach http://localhost:8000/
+##add the path to the url you want to go to
+##eg: http://localhost:8000/fish/ for fish data
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', fishmain),
+    path('fish/', fishmain), 
+    path('user/', usermain),
 ]
