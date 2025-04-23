@@ -126,7 +126,7 @@ function Companion() {
         }
 
         getFishList();
-    }, [username]);
+    }, [username, showFishapedia]);
 
     useEffect(() => {
         console.log('fishList: ', fishList);
