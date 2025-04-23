@@ -8,51 +8,6 @@ from collections import defaultdict
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-
-#===========================DATABASE CREATION==========================
-#
-#               CURRENTLY NOT NEEDED, IT'S FOR REFERENCES
-#
-#
-#
-#
-def database_creation():
-    try:
-        conn = sqlite3.connect('fishing.db')
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-        CREATE TABLE IF NOT EXISTS users (
-            username TEXT PRIMARY KEY UNIQUE,
-            password TEXT NOT NULL
-        )
-        """
-        )
-        cursor.execute(
-            """
-        CREATE TABLE IF NOT EXISTS fish (
-            fishname TEXT NOT NULL,
-            rarities TEXT NOT NULL
-        )
-        """
-        )
-        cursor.execute(
-            """
-        CREATE TABLE IF NOT EXISTS collection (
-            username TEXT PRIMARY KEY UNIQUE,
-            fishname TEXT NOT NULL,
-            quantity INTEGER NOT NULL,
-            FOREIGN KEY (username) REFERENCES users(username),
-            FOREIGN KEY (fishname) REFERENCES fish(fishname)
-        )
-        """
-        )
-        conn.commit()
-        conn.close()
-        print("Table(s) created/checked")
-    except sqlite3.Error as e:
-        print(f"Error connecting to the database: {e}")
-
 #===========================DATABASE CREATION==========================
 #
 #                       USER CREATION/LOGIN
@@ -339,7 +294,6 @@ def open_crate(request):
 
 #===================FUNCTION EXECUTION==========================
 def fishmain(request):
-    #database_creation() #shouldn't be needed, as the database is already created
     fishes = database_extraction()
     if not fishes:
         print("Didn't extract fish data")
