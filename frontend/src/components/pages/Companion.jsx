@@ -20,6 +20,8 @@ function Companion() {
     const [showBackpack, setShowBackpack] = useState(false);
 
     const [fishList, setFishList] = useState([]);
+    const [inventory, setInventory] = useState([]);
+    const [inventoryRefresh, setInventoryRefresh] = useState(0);
 
     const loginUser = async (username, password) => {
         console.log(
@@ -92,8 +94,34 @@ function Companion() {
         }
     };
 
-    const openItem = (item) => {
-        console.log(item.name);
+    const openItem = async (item) => {
+        try {
+            console.log('opening box!\nrarity: ' + item.rarity);
+            const response = await fetch(
+                'http://localhost:8000/user/open_crate/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        rarity: item.rarity,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('box opened: ', data);
+                setInventoryRefresh((i) => i + 1);
+            } else {
+                console.error('box not opened: ', data);
+            }
+        } catch (error) {
+            console.error('request failed: ', error);
+        }
     };
 
     // only fetch fish data upon mounting
@@ -126,11 +154,39 @@ function Companion() {
         }
 
         getFishList();
-    }, [username, showFishapedia]);
+    }, [username, showFishapedia, inventoryRefresh]);
 
+    // only fetch inventory upon mounting
     useEffect(() => {
-        console.log('fishList: ', fishList);
-    }, [fishList]);
+        const getInventory = async () => {
+            try {
+                const response = await fetch(
+                    `http://localhost:8000/user/get_inventory/?username=${username}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Error fetching fish data');
+                }
+
+                const data = await response.json();
+                setInventory(data.inventory);
+            } catch (error) {
+                console.error('fish list fetching failed: ', error);
+            }
+        };
+
+        if (!username) {
+            return;
+        }
+
+        getInventory();
+    }, [username, showBackpack, inventoryRefresh]);
 
     const goalList = [
         { name: 'Walk 2 miles', reward: 1, progress: 50 },
@@ -148,15 +204,6 @@ function Companion() {
         { name: 'Total distance ran', amount: 3, label: 'miles' },
         { name: 'Total distance biked', amount: 15, label: 'miles' },
         { name: 'Total goals met', amount: 10, label: 'goals' },
-    ];
-
-    const inventoryList = [
-        { id: 0, name: 'Fish Crate', rarity: 'Common' },
-        { id: 1, name: 'Fish Crate', rarity: 'Rare' },
-        { id: 2, name: 'Fish Crate', rarity: 'Legendary' },
-        { id: 3, name: 'Fish Crate', rarity: 'Common' },
-        { id: 4, name: 'Fish Crate', rarity: 'Common' },
-        { id: 5, name: 'Fish Crate', rarity: 'Common' },
     ];
 
     return (
@@ -219,7 +266,7 @@ function Companion() {
                     {showStats && <StatsDisplay statList={statList} />}
                     {showBackpack && (
                         <BackpackDisplay
-                            inventoryList={inventoryList}
+                            inventoryList={inventory}
                             handleOpening={openItem}
                         />
                     )}

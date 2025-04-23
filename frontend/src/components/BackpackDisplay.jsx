@@ -10,15 +10,15 @@ const BackpackDisplay = ({ inventoryList, handleOpening }) => {
                 </div>
                 <div className="flex flex-col overflow-y-scroll p-4 h-11/12 border-t-2 border-[var(--water-dark)] items-center justify-start">
                     <div className="flex flex-row flex-wrap items-center justify-center gap-6">
-                        {inventoryList.map((item, index) => (
-                            <InventoryItem
-                                key={index}
-                                item={item}
-                                handleClick={() => {
-                                    handleOpening(item);
-                                }}
-                            ></InventoryItem>
-                        ))}
+                        {inventoryList.flatMap((item, itemIndex) =>
+                            Array.from({ length: item.quantity }, (_, i) => (
+                                <InventoryItem
+                                    key={itemIndex - i}
+                                    item={item}
+                                    handleClick={() => handleOpening(item)}
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
@@ -31,9 +31,9 @@ const InventoryItem = ({ item, handleClick }) => {
         <>
             <div className="flex bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] p-4 rounded-xl w-1/4 aspect-square text-center items-center justify-center shadow-lg">
                 <div className="flex flex-col">
-                    <span className="text-lg font-bold">{item.name}</span>
-
-                    <div className="gap-4">{item.rarity}</div>
+                    <span className="text-lg font-bold">
+                        {item.rarity} fish crate
+                    </span>
 
                     <Button
                         variant="secondary"

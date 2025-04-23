@@ -3,6 +3,7 @@
 #some data is carried into the frontend
 import json
 import sqlite3
+import random
 from collections import defaultdict
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -219,6 +220,122 @@ def request_fishapedia_data(request):
         except Exception as e:
             return JsonResponse({'ERROR': str(e)}, status=500)
     return JsonResponse({'ERROR': 'invalid request method'}, status=405)
+
+# get fish crate inventory for user
+def extract_user_inventory(username):
+    try:
+        conn = sqlite3.connect('fishing.db')
+        conn.execute("PRAGMA foreign_keys = ON;")
+        cursor = conn.cursor()
+
+        # get user id using username
+        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username, ))
+        result = cursor.fetchone()
+        if not result:
+            return []
+
+        u_id = result[0]
+
+        # join data from collection and fish tables
+        cursor.execute("SELECT rarity, quantity FROM chest_inventory WHERE user_id = ?", (u_id,))
+        result = cursor.fetchall()
+
+        conn.close() # make sure to close connection before returning
+
+        print(u_id)
+        # return formatted results
+        return [
+            {
+                'rarity': row[0],
+                'quantity': row[1],
+            }
+            for row in result
+        ]
+    except sqlite3.Error as e:
+        print(f"Error connecting to the database: {e}")
+    return []
+
+@csrf_exempt
+def request_inventory(request):
+    if request.method == 'GET':
+        try:
+            username = request.GET.get('username')
+            if not username:
+                return JsonResponse({'ERROR': 'no username'}, status=400)
+
+            data = extract_user_inventory(username)
+
+            return JsonResponse({'inventory': data}, status=200, safe=False)
+        except Exception as e:
+            return JsonResponse({'ERROR': str(e)}, status=500)
+    return JsonResponse({'ERROR': 'invalid request method'}, status=405)
+
+def perform_crate_opening(username, rarity):
+    try:
+        conn = sqlite3.connect('fishing.db')
+        conn.execute("PRAGMA foreign_keys = ON;")
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username,))
+        result = cursor.fetchone()
+        if not result:
+            raise Exception("User not found.")
+        u_id = result[0]
+
+        cursor.execute("SELECT fishname FROM fish WHERE rarities = ?", (rarity,))
+        fish_options = cursor.fetchall()
+        if not fish_options:
+            raise Exception("No fish available for this rarity.")
+
+        selected_fish = random.choice(fish_options)[0]
+
+        cursor.execute("""
+            SELECT quantity FROM collection WHERE user_id = ? AND fishname = ?
+        """, (u_id, selected_fish))
+        existing = cursor.fetchone()
+
+        if existing:
+            cursor.execute("""
+                UPDATE collection SET quantity = quantity + 1
+                WHERE user_id = ? AND fishname = ?
+            """, (u_id, selected_fish))
+        else:
+            cursor.execute("""
+                INSERT INTO collection (user_id, fishname, quantity)
+                VALUES (?, ?, 1)
+            """, (u_id, selected_fish))
+
+        cursor.execute("""
+            UPDATE chest_inventory
+            SET quantity = quantity - 1
+            WHERE user_id = ? AND rarity = ? AND quantity > 0
+        """, (u_id, rarity))
+
+        conn.commit()
+        conn.close()
+
+        return [{'fishname': selected_fish}]
+    except sqlite3.Error as e:
+        print(f"Database error during crate opening: {e}")
+        return []
+    except Exception as e:
+        print(f"Error during crate opening: {e}")
+        return []
+
+@csrf_exempt
+def open_crate(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            rarity = data.get('rarity')
+
+            contents = perform_crate_opening(username, rarity)
+
+            return JsonResponse({'message': f'contents: {contents}'}, status = 200)
+        except Exception as e:
+            return JsonResponse({'ERROR': str(e)}, status=500)
+    return JsonResponse({'ERROR: invalid request method'}, status=405)
 
 #===================FUNCTION EXECUTION==========================
 def fishmain(request):
