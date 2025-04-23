@@ -16,8 +16,9 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path
-from fishing_backend.fish_collection import fishmain
-from fishing_backend.fish_collection import request_fishapedia_data, usermain, create_user, login_user, request_inventory, open_crate
+
+from fishing_backend.user_database import create_user, login_user
+from fishing_backend.item_databases import request_fishapedia_data, request_inventory, open_crate
 
 #NOTE:
 ##when you run the server, when you reach http://localhost:8000/
@@ -25,9 +26,7 @@ from fishing_backend.fish_collection import request_fishapedia_data, usermain, c
 ##eg: http://localhost:8000/fish/ for fish data
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('fish/', fishmain),
     path('fish/get_data/', request_fishapedia_data),
-    path('user/', usermain),
     path('user/create/', create_user),
     path('user/login/', login_user),
     path('user/get_inventory/', request_inventory),
