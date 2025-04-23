@@ -29,17 +29,19 @@ const BackpackDisplay = ({ inventoryList, handleOpening }) => {
 const InventoryItem = ({ item, handleClick }) => {
     return (
         <>
-            <div className="flex bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] p-4 rounded-xl w-1/4 aspect-square text-center items-center justify-center shadow-lg">
-                <div className="flex flex-col">
-                    <span className="text-lg font-bold">
+            <div className="flex bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] p-2 rounded-xl w-[172px] aspect-square text-center items-center justify-center shadow-lg">
+                <div className="flex flex-col justify-between h-5/6 gap items-center">
+                    <span className="text-xl font-bold w-3/4">
                         {item.rarity} fish crate
                     </span>
 
-                    <Button
-                        variant="secondary"
-                        onClick={handleClick}
-                        buttonText="open"
-                    />
+                    <div>
+                        <Button
+                            variant="secondary"
+                            onClick={handleClick}
+                            buttonText="open"
+                        />
+                    </div>
                 </div>
             </div>
         </>
