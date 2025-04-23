@@ -7,7 +7,7 @@ import { StatsDisplay } from '../StatsDisplay';
 import { BackpackDisplay } from '../BackpackDisplay';
 import { Backpack, BookText, ChartLine, Goal } from 'lucide-react';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Companion() {
     const [username, setUsername] = useState(null);
@@ -18,6 +18,8 @@ function Companion() {
     const [showGoals, setShowGoals] = useState(false);
     const [showStats, setShowStats] = useState(false);
     const [showBackpack, setShowBackpack] = useState(false);
+
+    const [fishList, setFishList] = useState([]);
 
     const loginUser = async (username, password) => {
         console.log(
@@ -57,7 +59,6 @@ function Companion() {
             console.error('request failed: ', error);
             setShowLogin(true);
         }
-        console.log(showLogin);
     };
 
     const createUser = async (username, password) => {
@@ -95,20 +96,41 @@ function Companion() {
         console.log(item.name);
     };
 
-    const fishList = [
-        { name: 'Salmon', timesCaught: 3 },
-        { name: 'Trout', timesCaught: 0 },
-        { name: 'Rockfish', timesCaught: 1 },
-        { name: 'Sea Bass', timesCaught: 25 },
-        { name: 'Gar', timesCaught: 2 },
-        { name: 'Great White Shark', timesCaught: 0 },
-        { name: 'Tuna', timesCaught: 2 },
-        { name: 'Octopus', timesCaught: 4 },
-        { name: 'Coelacanth', timesCaught: 0 },
-        { name: 'Catfish', timesCaught: 9 },
-        { name: 'Hammerhead Shark', timesCaught: 0 },
-        { name: 'Shrimp', timesCaught: 5 },
-    ];
+    // only fetch fish data upon mounting
+    useEffect(() => {
+        const getFishList = async () => {
+            try {
+                const response = await fetch(
+                    `http://localhost:8000/fish/get_data/?username=${username}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Error fetching fish data');
+                }
+
+                const data = await response.json();
+                setFishList(data.fish_data);
+            } catch (error) {
+                console.error('fish list fetching failed: ', error);
+            }
+        };
+
+        if (!username) {
+            return;
+        }
+
+        getFishList();
+    }, [username]);
+
+    useEffect(() => {
+        console.log('fishList: ', fishList);
+    }, [fishList]);
 
     const goalList = [
         { name: 'Walk 2 miles', reward: 1, progress: 50 },

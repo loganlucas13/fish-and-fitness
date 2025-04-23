@@ -25,8 +25,10 @@ const Fish = ({ fishData }) => {
         <>
             <div className="flex bg-[var(--menu-light)] text-[var(--water-dark)] border-2 border-[var(--water-dark)] p-4 rounded-xl w-1/4 aspect-square text-center items-center justify-center shadow-lg">
                 <div className="flex flex-col">
-                    <span className="text-lg font-bold">{fishData.name}</span>
-                    <span># caught: {fishData.timesCaught}</span>
+                    <span className="text-lg font-bold">
+                        {fishData.fishname}
+                    </span>
+                    <span># caught: {fishData.quantity}</span>
                 </div>
             </div>
         </>

@@ -17,7 +17,7 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 from fishing_backend.fish_collection import fishmain
-from fishing_backend.fish_collection import usermain, create_user, login_user
+from fishing_backend.fish_collection import request_fishapedia_data, usermain, create_user, login_user
 
 #NOTE:
 ##when you run the server, when you reach http://localhost:8000/
@@ -26,6 +26,7 @@ from fishing_backend.fish_collection import usermain, create_user, login_user
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('fish/', fishmain),
+    path('fish/get_data/', request_fishapedia_data),
     path('user/', usermain),
     path('user/create/', create_user),
     path('user/login/', login_user),
