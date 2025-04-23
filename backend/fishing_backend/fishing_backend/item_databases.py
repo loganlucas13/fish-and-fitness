@@ -1,6 +1,7 @@
 import json
 import random
 import sqlite3
+import heapq
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -125,28 +126,41 @@ def perform_crate_opening(username, rarity):
             raise Exception("User not found.")
         u_id = result[0]
 
-        cursor.execute("SELECT fishname FROM fish WHERE rarities = ?", (rarity,))
+        cursor.execute("SELECT fishname, probability FROM fish WHERE rarities = ?", (rarity,))
         fish_options = cursor.fetchall()
         if not fish_options:
             raise Exception("No fish available for this rarity.")
 
-        selected_fish = random.choice(fish_options)[0]
+        random_val = random.uniform(0.01, 1.00)
+        #advanced data structure requirement here
+        #kth largest with a heap
+        heap = []
+        for fishname, prob in fish_options:
+            diff = abs(prob - random_val)
+            heapq.heappush(heap, (diff, fishname, prob))
+        k = random.randint(1, 3)
+        top_k = heapq.nsmallest(k, heap)
 
-        cursor.execute("""
-            SELECT quantity FROM collection WHERE user_id = ? AND fishname = ?
-        """, (u_id, selected_fish))
-        existing = cursor.fetchone()
+        selected_fishes = []
+        for f in top_k:
+            selected_fishes.append(f[1])
+        
+        for fish in selected_fishes:
+            cursor.execute("""
+                SELECT quantity FROM collection WHERE user_id = ? AND fishname = ?
+            """, (u_id, fish))
+            existing = cursor.fetchone()
 
-        if existing:
-            cursor.execute("""
-                UPDATE collection SET quantity = quantity + 1
-                WHERE user_id = ? AND fishname = ?
-            """, (u_id, selected_fish))
-        else:
-            cursor.execute("""
-                INSERT INTO collection (user_id, fishname, quantity)
-                VALUES (?, ?, 1)
-            """, (u_id, selected_fish))
+            if existing:
+                cursor.execute("""
+                    UPDATE collection SET quantity = quantity + 1
+                    WHERE user_id = ? AND fishname = ?
+                """, (u_id, fish))
+            else:
+                cursor.execute("""
+                    INSERT INTO collection (user_id, fishname, quantity)
+                    VALUES (?, ?, 1)
+                """, (u_id, fish))
 
         cursor.execute("""
             UPDATE chest_inventory
@@ -157,7 +171,7 @@ def perform_crate_opening(username, rarity):
         conn.commit()
         conn.close()
 
-        return [{'fishname': selected_fish}]
+        return [{'fishname': f} for f in selected_fishes]
     except sqlite3.Error as e:
         print(f"Database error during crate opening: {e}")
         return []
