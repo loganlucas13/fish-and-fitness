@@ -1,5 +1,7 @@
 import json
 import sqlite3
+import pickle
+from cuckoopy import CuckooFilter #pip install cuckoopy https://pypi.org/project/cuckoopy/#description
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,23 +9,36 @@ from django.views.decorators.csrf import csrf_exempt
 
 def database_new_user(username, password):
     try:
+        #load cuckoo filter
+        with open("cuckoo.pkl", "rb") as file:
+            user_filter = pickle.load(file)
+        if user_filter.contains(username):
+            print("User most likely exists via cuckoo filter check")
+            return username
+
+        #after cuckoo filter check, start up database
         conn = sqlite3.connect('fishing.db')
         conn.execute("PRAGMA foreign_keys = ON;")
         cursor = conn.cursor()
-        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username, ))
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
         user_exist = cursor.fetchone()
+
         #check if user already exists
         if user_exist:
             print("User already exists")
             conn.close()
-            return user_exist
-        #create the user, increments the highest user_id by one for the database
+        #create the user
         else:
             cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password, ))
             conn.commit()
             print("User created")
             conn.close()
-            return user_exist
+        
+        #update the cuckoo filter
+        with open("cuckoo.pkl", "wb") as file:
+            pickle.dump(user_filter, file)
+        return user_exist
+
     except sqlite3.Error as e:
         print(f"Error connecting to the database: {e}")
 
@@ -48,7 +63,7 @@ def database_login_user(username, password):
         conn = sqlite3.connect('fishing.db')
         conn.execute("PRAGMA foreign_keys = ON;")
         cursor = conn.cursor()
-        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username, ))
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
         user_exist = cursor.fetchone()
 
         if not user_exist:

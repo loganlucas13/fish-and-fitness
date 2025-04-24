@@ -16,7 +16,7 @@ def extract_fish_for_user(username):
         cursor = conn.cursor()
 
         # get user id using username
-        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username, ))
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
         result = cursor.fetchone()
         if not result:
             return []
@@ -28,7 +28,7 @@ def extract_fish_for_user(username):
         SELECT fish.fishname, fish.rarities, fish.probability,
             COALESCE(collection.quantity, 0) AS quantity
         FROM fish
-        LEFT JOIN collection ON collection.fishname = fish.fishname AND collection.user_id = ?
+        LEFT JOIN collection ON collection.fishname = fish.fishname AND collection.username = ?
         """, (u_id,))
         result = cursor.fetchall()
 
@@ -73,7 +73,7 @@ def extract_user_inventory(username):
         cursor = conn.cursor()
 
         # get user id using username
-        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username, ))
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
         result = cursor.fetchone()
         if not result:
             return []
@@ -81,7 +81,7 @@ def extract_user_inventory(username):
         u_id = result[0]
 
         # join data from collection and fish tables
-        cursor.execute("SELECT rarity, quantity FROM chest_inventory WHERE user_id = ?", (u_id,))
+        cursor.execute("SELECT rarity, quantity FROM chest_inventory WHERE username = ?", (u_id,))
         result = cursor.fetchall()
 
         conn.close() # make sure to close connection before returning
@@ -120,7 +120,7 @@ def perform_crate_opening(username, rarity):
         conn.execute("PRAGMA foreign_keys = ON;")
         cursor = conn.cursor()
 
-        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username,))
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username,))
         result = cursor.fetchone()
         if not result:
             raise Exception("User not found.")
@@ -147,25 +147,25 @@ def perform_crate_opening(username, rarity):
         
         for fish in selected_fishes:
             cursor.execute("""
-                SELECT quantity FROM collection WHERE user_id = ? AND fishname = ?
+                SELECT quantity FROM collection WHERE username = ? AND fishname = ?
             """, (u_id, fish))
             existing = cursor.fetchone()
 
             if existing:
                 cursor.execute("""
                     UPDATE collection SET quantity = quantity + 1
-                    WHERE user_id = ? AND fishname = ?
+                    WHERE username = ? AND fishname = ?
                 """, (u_id, fish))
             else:
                 cursor.execute("""
-                    INSERT INTO collection (user_id, fishname, quantity)
+                    INSERT INTO collection (username, fishname, quantity)
                     VALUES (?, ?, 1)
                 """, (u_id, fish))
 
         cursor.execute("""
             UPDATE chest_inventory
             SET quantity = quantity - 1
-            WHERE user_id = ? AND rarity = ? AND quantity > 0
+            WHERE username = ? AND rarity = ? AND quantity > 0
         """, (u_id, rarity))
 
         conn.commit()
