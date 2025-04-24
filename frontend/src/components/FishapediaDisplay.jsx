@@ -25,27 +25,27 @@ const Fish = ({ fishData }) => {
         Common: {
             border: 'border-neutral-400',
             text: 'text-neutral-500',
-            bg: 'bg-[var(--menu-light)]', // barely-off white
+            bg: 'bg-[var(--menu-light)]',
         },
         Rare: {
             border: 'border-blue-400',
             text: 'text-blue-500',
-            bg: 'bg-[#f2f5f9]', // soft dusty blue
+            bg: 'bg-[#f2f5f9]',
         },
         Epic: {
             border: 'border-purple-400',
             text: 'text-purple-500',
-            bg: 'bg-[#f7f5fa]', // super soft lavender-gray
+            bg: 'bg-[#f7f5fa]',
         },
         Legendary: {
             border: 'border-amber-300',
             text: 'text-amber-500',
-            bg: 'bg-[#fdf9f0]', // pale tea-cream
+            bg: 'bg-[#fdf9f0]',
         },
         Mythical: {
             border: 'border-rose-300',
             text: 'text-rose-400',
-            bg: 'bg-[#f9f4f4]', // dusty pink-beige
+            bg: 'bg-[#f9f4f4]',
         },
     };
 
