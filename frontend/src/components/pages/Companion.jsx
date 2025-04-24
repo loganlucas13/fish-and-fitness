@@ -223,7 +223,7 @@ function Companion() {
     const fetchQuest = async () => {
         setGoal(null);
         try {
-            const response = await fetch(`http://localhost:8000/quest/grab/`, {
+            const response = await fetch(`http://localhost:8000/quest/grab/?username=${username}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ function Companion() {
     const acceptQuest = async () => {
         try {
             const response = await fetch(
-                'http://localhost:8000/quest/accept/',
+                'http://localhost:8000/quest/accept/?username=${username}',
                 {
                     method: 'POST',
                     headers: {

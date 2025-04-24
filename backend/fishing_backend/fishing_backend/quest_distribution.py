@@ -2,6 +2,7 @@ import json
 import sqlite3
 import random
 
+from fishing_backend.client import getDistance
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -15,7 +16,7 @@ def get_random_quest():
         cursor.execute("SELECT * FROM preset_quests")
 
         result = cursor.fetchall()
-        print(result)
+        #print(result) #some debug checkup
 
         conn.close() # make sure to close connection before returning
 
@@ -37,8 +38,40 @@ def get_random_quest():
 def request_quest(request):
     if request.method == 'GET':
         try:
+            username = request.GET.get('username')
+            if not username:
+                return JsonResponse({'ERROR': 'no username'}, status=400)
+            
+            conn = sqlite3.connect('fishing.db')
+            conn.execute("PRAGMA foreign_keys = ON;")
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT activity, distance, distance_progress, reward_type, reward_quantity
+                FROM pending_quests
+                WHERE username = ?
+                LIMIT 1
+            ''', (username,))
+            result = cursor.fetchone()
+            # #this code is rly spaghetti, fix it later
+            # if result:
+            #     data = {
+            #         'activity': result[0],
+            #         'distance': result[1],
+            #         'distance_progress': result[2],
+            #         'reward_type': result[3],
+            #         'reward_quantity': result[4],}
+            #     conn.close()
+            #     return JsonResponse({'quest_data': data}, status=200, safe=False)
+            
             data = get_random_quest()
+            activity = data.get('activity')
+            distance = data.get('distance')
+            reward_type = data.get('reward_type')
+            reward_quantity = data.get('reward_quantity')
 
+            
+            cursor.execute("REPLACE INTO pending_quests (username, activity, distance, distance_progress, reward_type, reward_quantity) VALUES (?, ?, ?, ?, ?, ?)", (username, activity, distance, 0, reward_type, reward_quantity))
+            conn.commit()
             return JsonResponse({'quest_data': data}, status=200, safe=False)
         except Exception as e:
             return JsonResponse({'ERROR': str(e)}, status=500)
@@ -69,7 +102,9 @@ def accept_quest(request):
 def check_progress(username):
     # check user's progress using Strava, update progress in data base, then return updated quest information to the user
     # make sure to include ALL columns from the user's quest table
-    return
+    progress = getDistance()
+    print(progress)
+    return progress
 
 @csrf_exempt
 def request_update(request):
@@ -80,6 +115,13 @@ def request_update(request):
                 return JsonResponse({'ERROR': 'no username'}, status=400)
 
             data = check_progress(username)
+
+            conn = sqlite3.connect('fishing.db')
+            conn.execute("PRAGMA foreign_keys = ON;")
+            cursor = conn.cursor()
+            cursor.execute("UPDATE pending_quests SET distance_progress = ? WHERE username = ?", (data, username))
+            conn.commit()
+            conn.close()
 
             return JsonResponse({'quest_data': data}, status=200, safe=False)
         except Exception as e:
