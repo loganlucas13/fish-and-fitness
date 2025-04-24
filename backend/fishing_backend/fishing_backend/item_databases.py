@@ -132,6 +132,7 @@ def perform_crate_opening(username, rarity):
             raise Exception("No fish available for this rarity.")
 
         random_val = random.uniform(0.01, 1.00)
+        
         #advanced data structure requirement here
         #kth largest with a heap
         heap = []
