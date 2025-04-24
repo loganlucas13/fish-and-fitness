@@ -22,6 +22,8 @@ function Companion() {
     const [fishList, setFishList] = useState([]);
     const [inventory, setInventory] = useState([]);
     const [inventoryRefresh, setInventoryRefresh] = useState(0);
+    const [goal, setGoal] = useState(null);
+    const [randomGoal, setRandomGoal] = useState(null);
 
     const loginUser = async (username, password) => {
         console.log(
@@ -218,17 +220,82 @@ function Companion() {
         getInventory();
     }, [username, showBackpack, inventoryRefresh]); // only fetch inventory upon mounting, refresh, or opening of screen
 
-    const goalList = [
-        { name: 'Walk 2 miles', reward: 1, progress: 50 },
-        { name: 'Bike 3 miles', reward: 1, progress: 20 },
-        { name: 'Run 1 mile', reward: 1, progress: 30 },
-        { name: 'Walk 5 miles', reward: 2, progress: 10 },
-        { name: 'Walk 2 miles', reward: 1, progress: 50 },
-        { name: 'Bike 3 miles', reward: 1, progress: 20 },
-        { name: 'Run 1 mile', reward: 1, progress: 30 },
-        { name: 'Walk 5 miles', reward: 2, progress: 10 },
-    ];
+    const fetchQuest = async () => {
+        setGoal(null);
+        try {
+            const response = await fetch(`http://localhost:8000/quest/grab/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
+            if (!response.ok) {
+                throw new Error('Error fetching quest data');
+            }
+
+            const data = await response.json();
+
+            setRandomGoal(data);
+        } catch (error) {
+            console.error('quest fetching failed: ', error);
+        }
+    };
+
+    const acceptQuest = async () => {
+        try {
+            const response = await fetch(
+                'http://localhost:8000/quest/accept/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        quest: goal,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Error fetching quest data');
+            }
+
+            const data = await response.json();
+
+            setGoal(randomGoal); // change this to the goal received from the server once the server functionality for quests is implemented
+        } catch (error) {
+            console.error('quest accepting failed: ', error);
+        }
+    };
+
+    const updateProgress = async () => {
+        try {
+            console.log('updating progress');
+            const response = await fetch(
+                `http://localhost:8000/quest/update/?username=${username}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Error fetching quest data');
+            }
+
+            const data = await response.json();
+
+            // setGoal(data); // update client-side goal display with update progress values
+        } catch (error) {
+            console.error('quest updating failed: ', error);
+        }
+    };
+
+    // TEMPORARY
     const statList = [
         { name: 'Total distance walked', amount: 10, label: 'miles' },
         { name: 'Total distance ran', amount: 3, label: 'miles' },
@@ -292,7 +359,15 @@ function Companion() {
                     {showFishapedia && (
                         <FishapediaDisplay fishList={fishList} />
                     )}
-                    {showGoals && <GoalsDisplay goalList={goalList} />}
+                    {showGoals && (
+                        <GoalsDisplay
+                            randomGoal={randomGoal}
+                            currentGoal={goal}
+                            requestFunction={fetchQuest}
+                            acceptFunction={acceptQuest}
+                            checkProgressFunction={updateProgress}
+                        />
+                    )}
                     {showStats && <StatsDisplay statList={statList} />}
                     {showBackpack && (
                         <BackpackDisplay

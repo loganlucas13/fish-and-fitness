@@ -15,26 +15,17 @@ def extract_fish_for_user(username):
         conn.execute("PRAGMA foreign_keys = ON;")
         cursor = conn.cursor()
 
-        # get user id using username
-        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
-        result = cursor.fetchone()
-        if not result:
-            return []
-
-        u_id = result[0]
-
         # join data from collection and fish tables
         cursor.execute("""
         SELECT fish.fishname, fish.rarities, fish.probability,
             COALESCE(collection.quantity, 0) AS quantity
         FROM fish
         LEFT JOIN collection ON collection.fishname = fish.fishname AND collection.username = ?
-        """, (u_id,))
+        """, (username,))
         result = cursor.fetchall()
 
         conn.close() # make sure to close connection before returning
 
-        print(u_id)
         # return formatted results
         return [
             {
@@ -72,21 +63,12 @@ def extract_user_inventory(username):
         conn.execute("PRAGMA foreign_keys = ON;")
         cursor = conn.cursor()
 
-        # get user id using username
-        cursor.execute("SELECT username FROM users WHERE username = ?", (username, ))
-        result = cursor.fetchone()
-        if not result:
-            return []
-
-        u_id = result[0]
-
         # join data from collection and fish tables
-        cursor.execute("SELECT rarity, quantity FROM chest_inventory WHERE username = ?", (u_id,))
+        cursor.execute("SELECT rarity, quantity FROM chest_inventory WHERE username = ?", (username,))
         result = cursor.fetchall()
 
         conn.close() # make sure to close connection before returning
 
-        print(u_id)
         # return formatted results
         return [
             {
@@ -132,7 +114,7 @@ def perform_crate_opening(username, rarity):
             raise Exception("No fish available for this rarity.")
 
         random_val = random.uniform(0.01, 1.00)
-        
+
         #advanced data structure requirement here
         #kth largest with a heap
         heap = []
@@ -145,7 +127,7 @@ def perform_crate_opening(username, rarity):
         selected_fishes = []
         for f in top_k:
             selected_fishes.append(f[1])
-        
+
         for fish in selected_fishes:
             cursor.execute("""
                 SELECT quantity FROM collection WHERE username = ? AND fishname = ?

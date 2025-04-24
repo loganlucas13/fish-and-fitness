@@ -19,6 +19,7 @@ from django.urls import path
 
 from fishing_backend.user_database import create_user, login_user
 from fishing_backend.item_databases import request_fishapedia_data, request_inventory, open_crate
+from fishing_backend.quest_distribution import request_quest, accept_quest, request_update
 
 #NOTE:
 ##when you run the server, when you reach http://localhost:8000/
@@ -31,4 +32,7 @@ urlpatterns = [
     path('user/login/', login_user),
     path('user/get_inventory/', request_inventory),
     path('user/open_crate/', open_crate),
+    path('quest/grab/', request_quest),
+    path('quest/accept/', accept_quest),
+    path('quest/update/', request_update),
 ]
