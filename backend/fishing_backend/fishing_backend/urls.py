@@ -14,25 +14,34 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 # from django.contrib import admin
 from django.urls import path
 
 from fishing_backend.user_database import create_user, login_user
-from fishing_backend.item_databases import request_fishapedia_data, request_inventory, open_crate
-from fishing_backend.quest_distribution import request_quest, accept_quest, request_update
+from fishing_backend.item_databases import (
+    request_fishapedia_data,
+    request_inventory,
+    open_crate,
+)
+from fishing_backend.quest_distribution import (
+    request_quest,
+    accept_quest,
+    request_update,
+)
 
-#NOTE:
+# NOTE:
 ##when you run the server, when you reach http://localhost:8000/
 ##add the path to the url you want to go to
 ##eg: http://localhost:8000/fish/ for fish data
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('fish/get_data/', request_fishapedia_data),
-    path('user/create/', create_user),
-    path('user/login/', login_user),
-    path('user/get_inventory/', request_inventory),
-    path('user/open_crate/', open_crate),
-    path('quest/grab/', request_quest),
-    path('quest/accept/', accept_quest),
-    path('quest/update/', request_update),
+    path("fish/get_data/", request_fishapedia_data),
+    path("user/create/", create_user),
+    path("user/login/", login_user),
+    path("user/get_inventory/", request_inventory),
+    path("user/open_crate/", open_crate),
+    path("quest/grab/", request_quest),
+    path("quest/accept/", accept_quest),
+    path("quest/update/", request_update),
 ]

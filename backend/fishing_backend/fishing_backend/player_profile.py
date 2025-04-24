@@ -1,6 +1,7 @@
 import random
 import time
 
+
 class PlayerProfile:
     """Represents a player with fishing and fitness stats."""
 
@@ -19,7 +20,6 @@ class PlayerProfile:
         # self.achievements = []
 
     def add_bait(self, bait_name, amount=1):
-
         if bait_name in self.bait_inventory:
             self.bait_inventory[bait_name] += amount
         else:

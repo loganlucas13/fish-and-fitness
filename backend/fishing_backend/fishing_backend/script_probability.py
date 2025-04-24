@@ -1,6 +1,6 @@
-#This script is just to assign % to each fish
-#between 1-100 uniquely
-#only cares about same rarities
+# This script is just to assign % to each fish
+# between 1-100 uniquely
+# only cares about same rarities
 import sqlite3
 import random
 from collections import defaultdict
