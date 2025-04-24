@@ -2,3 +2,4 @@ Django
 requests
 python-dotenv
 django-cors-headers
+cuckoopy
