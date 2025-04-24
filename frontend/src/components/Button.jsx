@@ -18,12 +18,21 @@ const Button = ({
     const defaultStyling =
         'flex flex-row items-center px-4 py-2 rounded-xl hover:cursor-pointer group';
 
+    if (variant) {
+        variant = variant.toLowerCase();
+    }
     // styling for different variants
     const variantStyles = {
         primary:
             'bg-[var(--foreground)] text-[var(--water-dark)] text-lg shadow-lg justify-center',
         secondary:
             'bg-[var(--water-dark)] text-[var(--menu-light)] text-lg shadow-lg justify-center',
+        common: 'bg-neutral-400 text-neutral-50 text-lg shadow-lg justify-center',
+        rare: 'bg-blue-400 text-blue-50 text-lg shadow-lg justify-center',
+        epic: 'bg-purple-400 text-purple-50 text-lg shadow-lg justify-center',
+        legendary:
+            'bg-amber-300 text-amber-50 text-lg shadow-lg justify-center',
+        mythical: 'bg-rose-300 text-rose-50 text-lg shadow-lg justify-center',
     };
 
     if (!variant) {
@@ -35,6 +44,7 @@ const Button = ({
     if (!iconPosition && icon) {
         iconPosition = 'left';
     }
+
     return (
         <>
             <button onClick={handleClick} className="group">

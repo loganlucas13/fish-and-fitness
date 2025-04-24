@@ -145,18 +145,18 @@ function Companion() {
                 const data = await response.json();
 
                 const rarityOrder = {
-                    Mythical: 4,
-                    Legendary: 3,
+                    Mythical: 0,
+                    Legendary: 1,
                     Epic: 2,
-                    Rare: 1,
-                    Common: 0,
+                    Rare: 3,
+                    Common: 4,
                 };
 
                 const sortedFish = data.fish_data.sort((a, b) => {
                     const rarityDiff =
                         rarityOrder[b.rarities] - rarityOrder[a.rarities];
                     if (rarityDiff !== 0) return rarityDiff;
-                    return a.fishname.localeCompare(b.fishname); // sort rarities alphabetically
+                    return a.fishname.localeCompare(b.fishname); // sort items in the same rarity alphabetically
                 });
 
                 setFishList(sortedFish);
@@ -190,7 +190,22 @@ function Companion() {
                 }
 
                 const data = await response.json();
-                setInventory(data.inventory);
+
+                const rarityOrder = {
+                    Mythical: 0,
+                    Legendary: 1,
+                    Epic: 2,
+                    Rare: 3,
+                    Common: 4,
+                };
+
+                const sortedInventory = data.inventory.sort((a, b) => {
+                    const rarityDiff =
+                        rarityOrder[b.rarities] - rarityOrder[a.rarities];
+                    return rarityDiff;
+                });
+
+                setInventory(sortedInventory);
             } catch (error) {
                 console.error('fish list fetching failed: ', error);
             }
