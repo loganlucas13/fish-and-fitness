@@ -21,21 +21,40 @@ const FishapediaDisplay = ({ fishList }) => {
 
 // used to display a single fish inside of the fishapedia
 const Fish = ({ fishData }) => {
-    const rarityColor = {
-        Common: 'neutral-500',
-        Rare: 'emerald-500',
-        Epic: 'purple-500',
-        Legendary: 'amber-400',
-        Mythical: 'rose-400',
+    const rarityClassMap = {
+        Common: {
+            border: 'border-neutral-400',
+            text: 'text-neutral-500',
+            bg: 'bg-[var(--menu-light)]', // barely-off white
+        },
+        Rare: {
+            border: 'border-blue-400',
+            text: 'text-blue-500',
+            bg: 'bg-[#f2f5f9]', // soft dusty blue
+        },
+        Epic: {
+            border: 'border-purple-400',
+            text: 'text-purple-500',
+            bg: 'bg-[#f7f5fa]', // super soft lavender-gray
+        },
+        Legendary: {
+            border: 'border-amber-300',
+            text: 'text-amber-500',
+            bg: 'bg-[#fdf9f0]', // pale tea-cream
+        },
+        Mythical: {
+            border: 'border-rose-300',
+            text: 'text-rose-400',
+            bg: 'bg-[#f9f4f4]', // dusty pink-beige
+        },
     };
-    const selectedRarityColor = rarityColor[fishData.rarities];
 
-    const rarityBorderStyling = `border-${selectedRarityColor}`;
+    const { border, text, bg } = rarityClassMap[fishData.rarities] || {};
 
     return (
         <div className="flex flex-col items-center">
             <div
-                className={`flex bg-[var(--menu-light)] text-[var(--water-dark)] border-2 ${rarityBorderStyling} p-4 rounded-xl w-36 aspect-square shadow-lg`}
+                className={`flex ${bg} ${text} border-2 ${border} p-4 rounded-xl w-36 aspect-square shadow-lg`}
             >
                 <div className="flex flex-col w-full items-center justify-center text-center gap-2">
                     <span className="text-xl font-bold">
@@ -46,9 +65,7 @@ const Fish = ({ fishData }) => {
                     </span>
                 </div>
             </div>
-            <span className={`text-${selectedRarityColor} text-lg`}>
-                {fishData.rarities}
-            </span>
+            <span className={`${text} text-lg`}>{fishData.rarities}</span>
         </div>
     );
 };

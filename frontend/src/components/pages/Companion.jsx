@@ -143,7 +143,23 @@ function Companion() {
                 }
 
                 const data = await response.json();
-                setFishList(data.fish_data);
+
+                const rarityOrder = {
+                    Mythical: 4,
+                    Legendary: 3,
+                    Epic: 2,
+                    Rare: 1,
+                    Common: 0,
+                };
+
+                const sortedFish = data.fish_data.sort((a, b) => {
+                    const rarityDiff =
+                        rarityOrder[b.rarities] - rarityOrder[a.rarities];
+                    if (rarityDiff !== 0) return rarityDiff;
+                    return a.fishname.localeCompare(b.fishname); // sort rarities alphabetically
+                });
+
+                setFishList(sortedFish);
             } catch (error) {
                 console.error('fish list fetching failed: ', error);
             }
@@ -156,7 +172,6 @@ function Companion() {
         getFishList();
     }, [username, showFishapedia, inventoryRefresh]);
 
-    // only fetch inventory upon mounting
     useEffect(() => {
         const getInventory = async () => {
             try {
@@ -186,7 +201,7 @@ function Companion() {
         }
 
         getInventory();
-    }, [username, showBackpack, inventoryRefresh]);
+    }, [username, showBackpack, inventoryRefresh]); // only fetch inventory upon mounting, refresh, or opening of screen
 
     const goalList = [
         { name: 'Walk 2 miles', reward: 1, progress: 50 },
