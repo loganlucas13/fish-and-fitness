@@ -31,7 +31,6 @@ def getDistance():
     print("\nRequesting token...\n")
     res = requests.post(auth_url, data=payload, verify=False)
     access_token = res.json()["access_token"]
-    # print("Access Token: {}\n".format(access_token)) #not static
 
     header = {}
     header["Authorization"] = "Bearer " + access_token
@@ -39,7 +38,4 @@ def getDistance():
     parameter["per_page"] = 200
     parameter["page"] = 1
     my_dataset = requests.get(activities_url, headers=header, params=parameter).json()
-    # print(my_dataset)
-    # print(my_dataset[0]["distance"]) #gets the distance of an activity
-    # print(my_dataset[0])
     return my_dataset[0]["distance"]

@@ -2,11 +2,11 @@ import { Profile } from './Profile';
 import PirateCat from '../assets/pirate_cat.png';
 import FishingRod from '../assets/fishing_rod.png';
 
-const Character = ({ username }) => {
+const Character = ({ username, goal }) => {
     return (
         <>
             <div className="flex flex-col items-center w-3/5">
-                <Profile username={username} />
+                <Profile username={username} goal={goal} />
 
                 <div className="relative w-48 h-48">
                     <img

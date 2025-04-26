@@ -1,5 +1,6 @@
 import { Button } from '../Button';
 import { Character } from '../Character';
+import { Reward } from '../Reward';
 import { Login } from '../Login';
 import { FishapediaDisplay } from '../FishapediaDisplay';
 import { GoalsDisplay } from '../GoalsDisplay';
@@ -18,25 +19,17 @@ function Companion() {
     const [showGoals, setShowGoals] = useState(false);
     const [showStats, setShowStats] = useState(false);
     const [showBackpack, setShowBackpack] = useState(false);
+    const [showReward, setShowReward] = useState(false);
 
     const [fishList, setFishList] = useState([]);
     const [inventory, setInventory] = useState([]);
     const [inventoryRefresh, setInventoryRefresh] = useState(0);
     const [goal, setGoal] = useState(null);
     const [randomGoal, setRandomGoal] = useState(null);
+    const [rewardData, setRewardData] = useState(null);
 
     const loginUser = async (username, password) => {
-        console.log(
-            'creating user!\nusername: ' + username + '\npassword: ' + password
-        );
-
         try {
-            console.log(
-                'logging in user!\nusername: ' +
-                    username +
-                    '\npassword: ' +
-                    password
-            );
             const response = await fetch('http://localhost:8000/user/login/', {
                 method: 'POST',
                 headers: {
@@ -48,15 +41,11 @@ function Companion() {
                 }),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                console.log('user logged in: ', data);
                 setUsername(username);
                 setPassword(password);
                 setShowLogin(false);
             } else {
-                console.error('user not logged in: ', data);
                 setShowLogin(true);
             }
         } catch (error) {
@@ -67,12 +56,6 @@ function Companion() {
 
     const createUser = async (username, password) => {
         try {
-            console.log(
-                'creating user!\nusername: ' +
-                    username +
-                    '\npassword: ' +
-                    password
-            );
             const response = await fetch('http://localhost:8000/user/create/', {
                 method: 'POST',
                 headers: {
@@ -98,7 +81,6 @@ function Companion() {
 
     const openItem = async (item) => {
         try {
-            console.log('opening box!\nrarity: ' + item.rarity);
             const response = await fetch(
                 'http://localhost:8000/user/open_crate/',
                 {
@@ -117,6 +99,9 @@ function Companion() {
 
             if (response.ok) {
                 console.log('box opened: ', data);
+                setRewardData(data);
+                setShowBackpack(false);
+                setShowReward(true);
                 setInventoryRefresh((i) => i + 1);
             } else {
                 console.error('box not opened: ', data);
@@ -203,7 +188,7 @@ function Companion() {
 
                 const sortedInventory = data.inventory.sort((a, b) => {
                     const rarityDiff =
-                        rarityOrder[b.rarities] - rarityOrder[a.rarities];
+                        rarityOrder[b.rarity] - rarityOrder[a.rarity];
                     return rarityDiff;
                 });
 
@@ -223,12 +208,15 @@ function Companion() {
     const fetchQuest = async () => {
         setGoal(null);
         try {
-            const response = await fetch(`http://localhost:8000/quest/grab/?username=${username}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetch(
+                `http://localhost:8000/quest/grab/?username=${username}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
 
             if (!response.ok) {
                 throw new Error('Error fetching quest data');
@@ -253,7 +241,7 @@ function Companion() {
                     },
                     body: JSON.stringify({
                         username: username,
-                        quest: goal,
+                        quest: randomGoal,
                     }),
                 }
             );
@@ -264,7 +252,7 @@ function Companion() {
 
             const data = await response.json();
 
-            setGoal(randomGoal); // change this to the goal received from the server once the server functionality for quests is implemented
+            setGoal(data);
         } catch (error) {
             console.error('quest accepting failed: ', error);
         }
@@ -272,7 +260,6 @@ function Companion() {
 
     const updateProgress = async () => {
         try {
-            console.log('updating progress');
             const response = await fetch(
                 `http://localhost:8000/quest/update/?username=${username}`,
                 {
@@ -289,9 +276,71 @@ function Companion() {
 
             const data = await response.json();
 
-            // setGoal(data); // update client-side goal display with update progress values
+            setGoal(data);
         } catch (error) {
             console.error('quest updating failed: ', error);
+        }
+    };
+
+    useEffect(() => {
+        const scanForQuest = async (username) => {
+            try {
+                const response = await fetch(
+                    `http://localhost:8000/quest/get_current_quest/?username=${username}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Error fetching quest data');
+                }
+
+                const data = await response.json();
+
+                return data;
+            } catch (error) {
+                console.error('error fetching initial quest', error);
+            }
+        };
+
+        const fetchQuest = async () => {
+            const currentQuest = await scanForQuest(username);
+            if (currentQuest && currentQuest.quest_data) {
+                setGoal(currentQuest);
+            }
+        };
+
+        // to ensure that it doesn't append to fetch during the login screen
+        if (username) {
+            fetchQuest();
+        }
+    }, [username]);
+
+    const claimQuestReward = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:8000/quest/claim_reward/?username=${username}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Error claiming reward');
+            }
+
+            const data = await response.json();
+            setGoal(null);
+            return data;
+        } catch (error) {
+            console.error('error fetching initial quest', error);
         }
     };
 
@@ -312,31 +361,49 @@ function Companion() {
                             <Button
                                 buttonText="fishapedia"
                                 icon={<BookText />}
-                                onClick={() =>
-                                    setShowFishapedia(!showFishapedia)
-                                }
+                                onClick={() => {
+                                    setShowFishapedia(!showFishapedia);
+                                    setShowGoals(false);
+                                    setShowStats(false);
+                                    setShowBackpack(false);
+                                }}
                             />
                             <Button
                                 buttonText="your goals"
                                 icon={<Goal />}
-                                onClick={() => setShowGoals(!showGoals)}
+                                onClick={() => {
+                                    setShowFishapedia(false);
+                                    setShowGoals(!showGoals);
+                                    setShowStats(false);
+                                    setShowBackpack(false);
+                                }}
                             />
                             <Button
                                 buttonText="statistics"
                                 icon={<ChartLine />}
-                                onClick={() => setShowStats(!showStats)}
+                                onClick={() => {
+                                    setShowFishapedia(false);
+                                    setShowGoals(false);
+                                    setShowStats(!showStats);
+                                    setShowBackpack(false);
+                                }}
                             ></Button>
                             <Button
                                 buttonText="backpack"
                                 icon={<Backpack />}
-                                onClick={() => setShowBackpack(!showBackpack)}
+                                onClick={() => {
+                                    setShowFishapedia(false);
+                                    setShowGoals(false);
+                                    setShowStats(false);
+                                    setShowBackpack(!showBackpack);
+                                }}
                             ></Button>
                         </div>
                     )}
 
                     <div className="flex flex-col items-center justify-center w-full h-full">
                         {username ? (
-                            <Character username={username} />
+                            <Character username={username} goal={goal} />
                         ) : (
                             <div className="flex flex-col items-center">
                                 {!showLogin ? (
@@ -366,6 +433,7 @@ function Companion() {
                             requestFunction={fetchQuest}
                             acceptFunction={acceptQuest}
                             checkProgressFunction={updateProgress}
+                            claimRewardFunction={claimQuestReward}
                         />
                     )}
                     {showStats && <StatsDisplay statList={statList} />}
@@ -373,6 +441,15 @@ function Companion() {
                         <BackpackDisplay
                             inventoryList={inventory}
                             handleOpening={openItem}
+                        />
+                    )}
+                    {showReward && (
+                        <Reward
+                            rewardData={rewardData}
+                            onClose={() => {
+                                setShowReward(false);
+                                setShowBackpack(true);
+                            }}
                         />
                     )}
                 </div>

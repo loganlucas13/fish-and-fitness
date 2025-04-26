@@ -28,6 +28,8 @@ from fishing_backend.quest_distribution import (
     request_quest,
     accept_quest,
     request_update,
+    request_current_quest,
+    claim_reward,
 )
 
 # NOTE:
@@ -44,4 +46,6 @@ urlpatterns = [
     path("quest/grab/", request_quest),
     path("quest/accept/", accept_quest),
     path("quest/update/", request_update),
+    path("quest/get_current_quest/", request_current_quest),
+    path("quest/claim_reward/", claim_reward),
 ]

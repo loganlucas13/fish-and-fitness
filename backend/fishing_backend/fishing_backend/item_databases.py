@@ -179,7 +179,10 @@ def perform_crate_opening(username, rarity):
         conn.commit()
         conn.close()
 
-        return [{"fishname": f} for f in selected_fishes]
+        return {
+            "rarity": rarity,
+            "fish_obtained": [{"fishname": f} for f in selected_fishes],
+        }
     except sqlite3.Error as e:
         print(f"Database error during crate opening: {e}")
         return []
@@ -198,7 +201,7 @@ def open_crate(request):
 
             contents = perform_crate_opening(username, rarity)
 
-            return JsonResponse({"message": f"contents: {contents}"}, status=200)
+            return JsonResponse({"contents": contents}, status=200)
         except Exception as e:
             return JsonResponse({"ERROR": str(e)}, status=500)
     return JsonResponse({"ERROR: invalid request method"}, status=405)

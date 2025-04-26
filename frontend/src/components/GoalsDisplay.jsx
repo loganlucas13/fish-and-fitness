@@ -7,6 +7,7 @@ const GoalsDisplay = ({
     requestFunction,
     acceptFunction,
     checkProgressFunction,
+    claimRewardFunction,
 }) => {
     return (
         <>
@@ -24,11 +25,14 @@ const GoalsDisplay = ({
                                 requestFunction={requestFunction}
                                 checkProgressFunction={checkProgressFunction}
                                 isChosen={true}
+                                claimRewardFunction={claimRewardFunction}
                             />
                         </div>
                     ) : (
                         <div className="flex flex-col gap-4">
-                            {randomGoal && <Goal goalData={randomGoal} />}
+                            {randomGoal && (
+                                <Goal goalData={randomGoal} isChosen={false} />
+                            )}
                             <div className="flex flex-row space-between gap-4">
                                 <Button
                                     variant="secondary"
@@ -58,7 +62,15 @@ const Goal = ({
     requestFunction,
     checkProgressFunction,
     isChosen,
+    claimRewardFunction,
 }) => {
+    const percentComplete =
+        goalData.quest_data && isChosen
+            ? goalData.quest_data.distance_progress /
+              1609 /
+              goalData.quest_data.distance
+            : 0;
+
     return (
         <div className="flex flex-col items-center w-full">
             <span className="text-xl text-[var(--water-dark)]">
@@ -75,24 +87,35 @@ const Goal = ({
                 </div>
                 {isChosen && (
                     <>
-                        <ProgressBar progress={50} />
-                        <div className="flex flex-row space-between">
+                        <ProgressBar progress={percentComplete} />
+
+                        {percentComplete < 1.0 ? (
+                            <div className="flex flex-row space-between">
+                                <Button
+                                    variant="secondary"
+                                    buttonText="Reroll quest"
+                                    onClick={() => {
+                                        requestFunction();
+                                    }}
+                                />
+                                <div className="flex flex-grow" />
+                                <Button
+                                    variant="secondary"
+                                    buttonText="Update progress"
+                                    onClick={() => {
+                                        checkProgressFunction();
+                                    }}
+                                />
+                            </div>
+                        ) : (
                             <Button
                                 variant="secondary"
-                                buttonText="Reroll quest"
+                                buttonText="Get reward!"
                                 onClick={() => {
-                                    requestFunction();
+                                    claimRewardFunction();
                                 }}
                             />
-                            <div className="flex flex-grow" />
-                            <Button
-                                variant="secondary"
-                                buttonText="Update progress"
-                                onClick={() => {
-                                    checkProgressFunction();
-                                }}
-                            />
-                        </div>
+                        )}
                     </>
                 )}
             </div>
