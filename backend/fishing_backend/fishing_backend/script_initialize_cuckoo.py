@@ -13,7 +13,7 @@ usernames = [row[0] for row in cursor.fetchall()]
 conn.close()
 
 cf = CuckooFilter(
-    capacity=10000, bucket_size=4, fingerprint_size=1, max_displacements=500
+    capacity=100, bucket_size=4, fingerprint_size=1, max_displacements=500
 )
 
 for username in usernames:
