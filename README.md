@@ -81,6 +81,8 @@ Some of these features include...
 
 ## Demo
 
+**[View the video demo here!](https://www.youtube.com/watch?v=Fvqi8xFQ0gc)**
+
 ### Landing Page
 
 <img width="1512" alt="image" src="https://github.com/user-attachments/assets/1490e8a3-3788-42ea-bd40-62f152c0268c" />
@@ -125,6 +127,7 @@ Some of these features include...
 
 ## Project Roadmap
 
+-   Streamline Strava API setup
 -   Implement more quests
 -   Add a page to view statistics and previous activity details
     -   Most common activities
