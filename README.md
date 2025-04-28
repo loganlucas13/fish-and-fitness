@@ -76,29 +76,28 @@ Some of these features include...
             <td><a href="#how-to-use-this-project">Getting started</td>
             <td><a href="#demo">Demo</a></td>
             <td><a href="#project-roadmap--">Project Roadmap</a></td>
-            <td><a href="#documentation">Documentation</a></td>
         </tr>
         <tr>
+            <td><a href="#documentation">Documentation</a></td>
             <td><a href="#contributors">Contributors</a></td>
-            <td><a href="#acknowledgments">Acknowledgments</a></td>
             <td><a href="#feedback">Feedback</a></td>
             <td><a href="#contact">Contact</a></td>
         </tr>
     </table>
 </dev>
 
-<!-- - Use this html element to create a back to top button. -->
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
 
-## Project Roadmap <!-- Optional --> <!-- add learning_Rs-->
+## Project Roadmap
 
-<!--
-* Add this section in case the project has different phases
-*
-* Under production or will be updated.
--->
+-   Implement more quests
+-   Add a page to view statistics and previous activity details
+    -   Most common activities
+    -   Total distance walked
+    -   Quantity of quests completed
+-   Refactoring!
+-   Deployment!
 
-<!-- - Use this html element to create a back to top button. -->
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
 
 ## Documentation
@@ -137,24 +136,12 @@ Some of these features include...
 -   Gathered data for rewards
 -   Tested application
 
-## Acknowledgments<!-- Optional -->
+## Feedback
 
-<!--
-* Credit where it's do
-*
-* Feel free to share your inspiration sources, Stackoverflow questions, github repos, tools etc.
--->
+> [!NOTE]
+> If you have any questions or concerns, feel free to reach out to any of the contributors through our contact information found <a href="#contact">here</a>.
 
-<!-- - Use this html element to create a back to top button. -->
-<p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
-
-## Feedback<!-- Required -->
-
-<!--
-* You can add contacts information like your email and social media account
-*
-* Also it's common to add some PR guidance.
--->
+To contribute, create a PR with your changes and add a detailed description of what changes/improvements you made (and reasoning if applicable).
 
 ## Contact
 
@@ -170,5 +157,4 @@ Some of these features include...
 
 -   Email: [tpham67@uic.edu](mailto:tpham67@uic.edu)
 
-<!-- - Use this html element to create a back to top button. -->
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
