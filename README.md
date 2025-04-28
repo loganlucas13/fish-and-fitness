@@ -1,5 +1,24 @@
 # Fish and Fitness
 
+## Table of Contents
+
+<dev align="center">
+    <table align="center">
+        <tr>
+            <td><a href="#about">About</a></td>
+            <td><a href="#how-to-use-this-project">Getting started</td>
+            <td><a href="#demo">Demo</a></td>
+            <td><a href="#project-roadmap--">Project Roadmap</a></td>
+        </tr>
+        <tr>
+            <td><a href="#documentation">Documentation</a></td>
+            <td><a href="#contributors">Contributors</a></td>
+            <td><a href="#feedback">Feedback</a></td>
+            <td><a href="#contact">Contact</a></td>
+        </tr>
+    </table>
+</dev>
+
 ## About
 
 Fish and Fitness is a fitness motivation app built using [React](https://react.dev/) and [Django](https://www.djangoproject.com/) designed to create an engaging experience for users through a wide variety of 'fish-themed' features.
@@ -60,32 +79,47 @@ Some of these features include...
 6. View your fish collection in the 'Fishapedia' menu.
 7. Repeat!
 
-## Demo<!-- Required -->
+## Demo
 
-<!--
-* You can add a demo here GH supports images/ GIFs/videos
-*
-* It's recommended to use GIFs as they are more dynamic
--->
+### Landing Page
 
-## Table of Contents
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/1490e8a3-3788-42ea-bd40-62f152c0268c" />
 
-<dev align="center">
-    <table align="center">
-        <tr>
-            <td><a href="#about">About</a></td>
-            <td><a href="#how-to-use-this-project">Getting started</td>
-            <td><a href="#demo">Demo</a></td>
-            <td><a href="#project-roadmap--">Project Roadmap</a></td>
-        </tr>
-        <tr>
-            <td><a href="#documentation">Documentation</a></td>
-            <td><a href="#contributors">Contributors</a></td>
-            <td><a href="#feedback">Feedback</a></td>
-            <td><a href="#contact">Contact</a></td>
-        </tr>
-    </table>
-</dev>
+### Create/Login Page
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/1aa7d950-9e8c-4ba7-b91c-bf08c5cea39c" />
+
+### Companion Home
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/f0ea9f34-35c5-44aa-b041-149526287993" />
+
+### Goals Tab
+
+#### No Goal Selected
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/4f3a31fb-3f6f-4b85-8ed4-9c6452ce2365" />
+
+#### Goal in Progress
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/4faf09a1-96e2-4358-90a4-4968f3a48ea8" />
+
+#### Goal Completed
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/3096876b-7655-4d2c-bd73-1b7fd7f4808e" />
+
+### Backpack
+
+#### Main Tab
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/cecf33ef-441d-4bc3-8082-9e07e2a13ff8" />
+
+#### After Opening Crate
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/b856b505-4fce-48f2-afd9-3a33f8ccae4e" />
+
+### Fishapedia
+
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/a6a915d2-5cb8-40e2-abaf-31b6caa61d6b" />
 
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
 
@@ -105,13 +139,7 @@ Some of these features include...
 
 -   [Strava API](https://developers.strava.com/)
 
-## Contributors<!-- Required -->
-
-<!--
-* Without contribution we wouldn't have open source.
-*
-* Generate github contributors Image here https://contrib.rocks/preview?repo=angular%2Fangular-ja
--->
+## Contributors
 
 <a href="https://github.com/University-of-Illinois-Chicago/fgp-al-khwarizmi/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=University-of-Illinois-Chicago/fgp-al-khwarizmi" />
