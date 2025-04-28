@@ -4,7 +4,6 @@ import { Reward } from '../Reward';
 import { Login } from '../Login';
 import { FishapediaDisplay } from '../FishapediaDisplay';
 import { GoalsDisplay } from '../GoalsDisplay';
-import { StatsDisplay } from '../StatsDisplay';
 import { BackpackDisplay } from '../BackpackDisplay';
 import { Backpack, BookText, ChartLine, Goal } from 'lucide-react';
 
@@ -17,7 +16,6 @@ function Companion() {
     const [showLogin, setShowLogin] = useState(false);
     const [showFishapedia, setShowFishapedia] = useState(false);
     const [showGoals, setShowGoals] = useState(false);
-    const [showStats, setShowStats] = useState(false);
     const [showBackpack, setShowBackpack] = useState(false);
     const [showReward, setShowReward] = useState(false);
 
@@ -344,14 +342,6 @@ function Companion() {
         }
     };
 
-    // TEMPORARY
-    const statList = [
-        { name: 'Total distance walked', amount: 10, label: 'miles' },
-        { name: 'Total distance ran', amount: 3, label: 'miles' },
-        { name: 'Total distance biked', amount: 15, label: 'miles' },
-        { name: 'Total goals met', amount: 10, label: 'goals' },
-    ];
-
     return (
         <>
             <div className="w-full h-screen p-4">
@@ -364,7 +354,6 @@ function Companion() {
                                 onClick={() => {
                                     setShowFishapedia(!showFishapedia);
                                     setShowGoals(false);
-                                    setShowStats(false);
                                     setShowBackpack(false);
                                 }}
                             />
@@ -374,27 +363,15 @@ function Companion() {
                                 onClick={() => {
                                     setShowFishapedia(false);
                                     setShowGoals(!showGoals);
-                                    setShowStats(false);
                                     setShowBackpack(false);
                                 }}
                             />
-                            <Button
-                                buttonText="statistics"
-                                icon={<ChartLine />}
-                                onClick={() => {
-                                    setShowFishapedia(false);
-                                    setShowGoals(false);
-                                    setShowStats(!showStats);
-                                    setShowBackpack(false);
-                                }}
-                            ></Button>
                             <Button
                                 buttonText="backpack"
                                 icon={<Backpack />}
                                 onClick={() => {
                                     setShowFishapedia(false);
                                     setShowGoals(false);
-                                    setShowStats(false);
                                     setShowBackpack(!showBackpack);
                                 }}
                             ></Button>
@@ -436,7 +413,6 @@ function Companion() {
                             claimRewardFunction={claimQuestReward}
                         />
                     )}
-                    {showStats && <StatsDisplay statList={statList} />}
                     {showBackpack && (
                         <BackpackDisplay
                             inventoryList={inventory}

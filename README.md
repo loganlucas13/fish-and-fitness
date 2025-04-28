@@ -39,15 +39,16 @@ Some of these features include...
 ### Backend Setup
 
 1. Open a new terminal instance
-2. Activate the Python virtual environment by running the following command in the terminal
+2. From the root directory of your local repository, run `cd backend` in the terminal to navigate to the backend directly.
+3. Activate the Python virtual environment by running the following command in the terminal
     - Windows: `venv\Scripts\activate.bat`
     - Unix/Mac: `source venv/bin/activate`
-3. Run `cd fishing_backend` to navigate to the Django project folder
-4. Install all dependencies by running `pip install -r requirements.txt`
-5. Start the server
+4. Run `cd fishing_backend` to navigate to the Django project folder
+5. Install all dependencies by running `pip install -r requirements.txt`
+6. Start the server
     - Windows: `py manage.py runserver`
     - Unix/Mac: `python manage.py runserver`
-6. Open the server at [127.0.0.1:8000](http://127.0.0.1:8000) to view available endpoints.
+7. Open the server at [127.0.0.1:8000](http://127.0.0.1:8000) to view available endpoints.
 
 ### Using the application
 
