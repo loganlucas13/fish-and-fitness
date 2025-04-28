@@ -19,6 +19,7 @@ Including another URLconf
 from django.urls import path
 
 from fishing_backend.user_database import create_user, login_user
+from fishing_backend.script_initialize_cuckoo import request_cuckoo
 from fishing_backend.item_databases import (
     request_fishapedia_data,
     request_inventory,
@@ -41,6 +42,7 @@ urlpatterns = [
     path("fish/get_data/", request_fishapedia_data),
     path("user/create/", create_user),
     path("user/login/", login_user),
+    path("user/set_up_cuckoo/", request_cuckoo),
     path("user/get_inventory/", request_inventory),
     path("user/open_crate/", open_crate),
     path("quest/grab/", request_quest),

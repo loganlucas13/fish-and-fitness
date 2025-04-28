@@ -26,6 +26,15 @@ function Companion() {
     const [randomGoal, setRandomGoal] = useState(null);
     const [rewardData, setRewardData] = useState(null);
 
+    const setUpCuckoo = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/user/set_up_cuckoo/', {
+                method: 'POST',
+            });
+        } catch (error) {
+            console.error('request failed: ', error);
+        }
+    }
     const loginUser = async (username, password) => {
         try {
             const response = await fetch('http://localhost:8000/user/login/', {
@@ -387,6 +396,7 @@ function Companion() {
                                     <Button
                                         buttonText={'Click here to log in!'}
                                         onClick={() => {
+                                            setUpCuckoo();
                                             setShowLogin(true);
                                         }}
                                     ></Button>
