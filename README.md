@@ -23,8 +23,7 @@ Some of these features include...
 3. Create an API Application with the 'Social Motivation' category, as well as `localhost` for the 'Website' and 'Authorization Callback Domain' categories.
 4. Follow the steps found [here](https://towardsdatascience.com/using-the-strava-api-and-pandas-to-explore-your-activity-data-d94901d9bfde/) to get the correct Client ID, Client Secret, and Refresh Token.
 
-    > [!NOTE]
-    > the Refresh Token on your API Application page does not have the correct permissions, so you must go through the steps linked above to get a new Refresh Token
+    > NOTE: The Refresh Token on your API Application page does not have the correct permissions, so you must go through the steps linked above to get a new Refresh Token
 
 5. Once you have your Client ID, Client Secret, and Refresh Token, navigate to the `/backend/fishing_backend/fishing_backend/.env.example` file in your local repository.
 6. Update `.env.example` with your keys, then rename the file to `.env`.
@@ -68,15 +67,7 @@ Some of these features include...
 * It's recommended to use GIFs as they are more dynamic
 -->
 
-## Table of Contents<!-- Optional -->
-
-<!--
-* This section is optional, yet having a contents table
-* helps keeping your README readable and more professional.
-*
-* If you are not familiar with HTML, no worries we all been there :D
-* Review learning resources to create anchor links.
--->
+## Table of Contents
 
 <dev align="center">
     <table align="center">
@@ -92,7 +83,6 @@ Some of these features include...
             <td><a href="#acknowledgments">Acknowledgments</a></td>
             <td><a href="#feedback">Feedback</a></td>
             <td><a href="#contact">Contact</a></td>
-            <td><a href="#license">License</a></td>
         </tr>
     </table>
 </dev>
@@ -111,13 +101,9 @@ Some of these features include...
 <!-- - Use this html element to create a back to top button. -->
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
 
-## Documentation<!-- Optional -->
+## Documentation
 
-<!--
-* You may add any documentation or Wikis here
-*
-*
--->
+-   [Strava API](https://developers.strava.com/)
 
 ## Contributors<!-- Required -->
 
@@ -126,6 +112,30 @@ Some of these features include...
 *
 * Generate github contributors Image here https://contrib.rocks/preview?repo=angular%2Fangular-ja
 -->
+
+<a href="https://github.com/University-of-Illinois-Chicago/fgp-al-khwarizmi/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=University-of-Illinois-Chicago/fgp-al-khwarizmi" />
+</a>
+
+#### Logan Lucas
+
+-   Designed and developed React frontend
+-   Constructed HTTP requests between React and Django
+-   Implemented quest system
+-   Made this README you're reading right now!
+
+#### Jonathan Kang
+
+-   Set up authentication for the Strava API
+-   Planned and constructed SQLite database for the entire application
+-   Developed backend operations for opening crates and distributing rewards
+-   Implemented Cuckoo filter in user database for increased efficiency
+
+#### Ron Pham
+
+-   Laid groundwork for fishing system
+-   Gathered data for rewards
+-   Tested application
 
 ## Acknowledgments<!-- Optional -->
 
@@ -146,21 +156,19 @@ Some of these features include...
 * Also it's common to add some PR guidance.
 -->
 
-## Contact<!-- Required -->
+## Contact
 
-<!--
-* add your email and contact info here
-*
-*
--->
+#### Logan Lucas
 
-## License<!-- Optional -->
+-   Email: [lluca5@uic.edu](mailto:lluca5@uic.edu)
 
-<!--
-* Here you can add project license for copyrights and distribution
-*
-* check this website for an easy reference https://choosealicense.com/)
--->
+#### Jonathan Kang
+
+-   Email: [jkang87@uic.edu](mailto:jkang87@uic.edu)
+
+#### Ron Pham
+
+-   Email: [tpham67@uic.edu](mailto:tpham67@uic.edu)
 
 <!-- - Use this html element to create a back to top button. -->
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
