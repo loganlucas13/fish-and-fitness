@@ -22,8 +22,10 @@ Some of these features include...
 2. After logging in, navigate to the [Strava API settings](https://www.strava.com/settings/api).
 3. Create an API Application with the 'Social Motivation' category, as well as `localhost` for the 'Website' and 'Authorization Callback Domain' categories.
 4. Follow the steps found [here](https://towardsdatascience.com/using-the-strava-api-and-pandas-to-explore-your-activity-data-d94901d9bfde/) to get the correct Client ID, Client Secret, and Refresh Token.
-    > [!IMPORTANT]
+
+    > [!NOTE]
     > the Refresh Token on your API Application page does not have the correct permissions, so you must go through the steps linked above to get a new Refresh Token
+
 5. Once you have your Client ID, Client Secret, and Refresh Token, navigate to the `/backend/fishing_backend/fishing_backend/.env.example` file in your local repository.
 6. Update `.env.example` with your keys, then rename the file to `.env`.
 
