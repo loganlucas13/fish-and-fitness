@@ -21,13 +21,16 @@
 
 ## About
 
-Fish and Fitness is a fitness motivation app built using [React](https://react.dev/) and [Django](https://www.djangoproject.com/) designed to create an engaging experience for users through a wide variety of 'fish-themed' features.
+Fish and Fitness is a fitness motivation app built using [React](https://react.dev/) and [Django](https://www.djangoproject.com/) designed to create an engaging experience for users through a wide variety of 'fish-themed' features. We hope that this will be a good motivator to spend less time on the phone and be more encouraged to exercise.
 
 Some of these features include...
 
 -   A dynamic goal system with rewards for completion
 -   Integration with the [Strava API](https://developers.strava.com/docs/reference/) to retrieve accurate workout and route data
 -   A wide variety of collectable fish to entice further physical activites!
+
+#### Why Django?
+We have plans to further develop this project, with it increasing in scale significantly. When deciding between Django and Flask, we learned that Django is a more comprehensive framework with tools-included, so we opted for it over Flask.
 
 ## How to use this project
 
@@ -59,9 +62,11 @@ Some of these features include...
 
 1. Open a new terminal instance
 2. From the root directory of your local repository, run `cd backend` in the terminal to navigate to the backend directly.
-3. Activate the Python virtual environment by running the following command in the terminal
-    - Windows: `venv\Scripts\activate.bat`
+3. 
+    Option 1: Activate the Python virtual environment by running the following command(s) in the terminal
+    - Windows: `py -m venv venv`, then `venv\Scripts\activate.bat`
     - Unix/Mac: `source venv/bin/activate`
+    Option 2: Use your local installation of Python. (Python 3.9 or newer)
 4. Run `cd fishing_backend` to navigate to the Django project folder
 5. Install all dependencies by running `pip install -r requirements.txt`
 6. Start the server
@@ -129,10 +134,13 @@ Some of these features include...
 
 -   Streamline Strava API setup
 -   Implement more quests
+    -   Possible time based implementation
 -   Add a page to view statistics and previous activity details
     -   Most common activities
     -   Total distance walked
     -   Quantity of quests completed
+    -   Number of fish obtained
+    -   Largest number of a fish type
 -   Refactoring!
 -   Deployment!
 
@@ -140,13 +148,20 @@ Some of these features include...
 
 ## Documentation
 
+#### Frontend Libraries/Frameworks Used
+
+1. [React](https://react.dev/)
+2. [React Router](https://reactrouter.com/)
+3. [Lucide](https://lucide.dev/)
+4. [Tailwind CSS](https://tailwindcss.com/)
+5. [Vite](https://vite.dev/)
+
+#### Other
 -   [Strava API](https://developers.strava.com/)
+-   [Django](https://www.djangoproject.com/)
 
 ## Contributors
 
-<a href="https://github.com/University-of-Illinois-Chicago/fgp-al-khwarizmi/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=University-of-Illinois-Chicago/fgp-al-khwarizmi" />
-</a>
 
 #### Logan Lucas
 
