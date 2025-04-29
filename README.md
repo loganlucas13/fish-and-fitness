@@ -129,10 +129,13 @@ Some of these features include...
 
 -   Streamline Strava API setup
 -   Implement more quests
+    -   Possible time based implementation
 -   Add a page to view statistics and previous activity details
     -   Most common activities
     -   Total distance walked
     -   Quantity of quests completed
+    -   Number of fish obtained
+    -   Largest number of a fish type
 -   Refactoring!
 -   Deployment!
 
@@ -144,9 +147,6 @@ Some of these features include...
 
 ## Contributors
 
-<a href="https://github.com/University-of-Illinois-Chicago/fgp-al-khwarizmi/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=University-of-Illinois-Chicago/fgp-al-khwarizmi" />
-</a>
 
 #### Logan Lucas
 
