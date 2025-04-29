@@ -14,9 +14,11 @@
     background: linear-gradient(
         to bottom,
         var(--water-light) 0%,
-        var(--water-medium) 20%,
-        var(--water-dark) 50%,
-        var(--water-deep) 90%
+        var(--water-light) 10%,
+        var(--water-medium) 30%,
+        var(--water-dark) 55%,
+        var(--water-deep) 75%,
+        var(--water-deep) 100%
     );
 
     --water-deep: #4a7089;
@@ -38,4 +40,24 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    background-repeat: repeat-y;
+    background-size: 100% 120%;
+    animation: waterMove 20s infinite;
+}
+
+.pixel-art {
+    image-rendering: pixelated;
+}
+
+@keyframes waterMove {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 0 0;
+    }
 }
