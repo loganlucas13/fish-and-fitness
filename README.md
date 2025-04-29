@@ -21,7 +21,7 @@
 
 ## About
 
-Fish and Fitness is a fitness motivation app built using [React](https://react.dev/) and [Django](https://www.djangoproject.com/) designed to create an engaging experience for users through a wide variety of 'fish-themed' features.
+Fish and Fitness is a fitness motivation app built using [React](https://react.dev/) and [Django](https://www.djangoproject.com/) designed to create an engaging experience for users through a wide variety of 'fish-themed' features. We hope that this will be a good motivator to spend less time on the phone and be more encouraged to exercise.
 
 Some of these features include...
 
