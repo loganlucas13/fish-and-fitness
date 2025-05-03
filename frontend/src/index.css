@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'Sniglet';
+    src: url('./assets/fonts/Sniglet-Regular.ttf');
+}
+
+:root {
+    font-family: 'Sniglet';
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    background: linear-gradient(
+        to bottom,
+        var(--water-light) 0%,
+        var(--water-light) 10%,
+        var(--water-medium) 30%,
+        var(--water-dark) 55%,
+        var(--water-deep) 75%,
+        var(--water-deep) 100%
+    );
+
+    --water-deep: #4a7089;
+    --water-dark: #6c95b1;
+    --water-medium: #9cbecd;
+    --water-light: #c0ccd5;
+
+    --land-dark: #6d986b;
+    --land-medium: #a4bf90;
+    --land-light: #dfe3cd;
+
+    --foreground: #edf1d6;
+
+    --menu-light: #fefae0;
+    --menu-dark: #d4a373;
+    --menu-background: #faedcd;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-repeat: repeat-y;
+    background-size: 100% 120%;
+    animation: waterMove 20s infinite;
+}
+
+.pixel-art {
+    image-rendering: pixelated;
+}
+
+@keyframes waterMove {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

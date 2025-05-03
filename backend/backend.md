@@ -1,1 +1,0 @@
-This directory is for all backend-related files. You can either replace it entirely with your own `backend` directory or populate it with files for your project.
