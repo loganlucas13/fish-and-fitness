@@ -90,43 +90,43 @@ We have plans to further develop this project, with it increasing in scale signi
 
 ### Landing Page
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/1490e8a3-3788-42ea-bd40-62f152c0268c" />
+<img width="2423" height="1274" alt="image" src="https://github.com/user-attachments/assets/af6186f0-e877-4318-8f49-aaac47a10b9f" />
 
 ### Create/Login Page
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/1aa7d950-9e8c-4ba7-b91c-bf08c5cea39c" />
+<img width="2423" height="1270" alt="image" src="https://github.com/user-attachments/assets/8d963441-5f62-4e15-83f3-831b939d9af7" />
 
 ### Companion Home
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/f0ea9f34-35c5-44aa-b041-149526287993" />
+<img width="2423" height="1270" alt="image" src="https://github.com/user-attachments/assets/4e2b087b-f78a-4bbc-a04e-1bc164385b01" />
 
 ### Goals Tab
 
 #### No Goal Selected
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/4f3a31fb-3f6f-4b85-8ed4-9c6452ce2365" />
+<img width="2425" height="1269" alt="image" src="https://github.com/user-attachments/assets/6aac3c6b-e792-46f2-8a4c-b1b98a77aac9" />
 
 #### Goal in Progress
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/4faf09a1-96e2-4358-90a4-4968f3a48ea8" />
+<img width="2424" height="1270" alt="image" src="https://github.com/user-attachments/assets/2563cd76-7280-4de6-a0ff-746d0c644e1d" />
 
 #### Goal Completed
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/3096876b-7655-4d2c-bd73-1b7fd7f4808e" />
+<img width="2421" height="1271" alt="image" src="https://github.com/user-attachments/assets/3caf3a44-6879-4712-9839-e636858f8db1" />
 
 ### Backpack
 
 #### Main Tab
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/cecf33ef-441d-4bc3-8082-9e07e2a13ff8" />
+<img width="2422" height="1271" alt="image" src="https://github.com/user-attachments/assets/e0a24f6d-301b-4baf-8ba7-babb0e1e1e06" />
 
 #### After Opening Crate
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/b856b505-4fce-48f2-afd9-3a33f8ccae4e" />
+<img width="2424" height="1272" alt="image" src="https://github.com/user-attachments/assets/301ba00b-c2e7-47f6-8d82-1e2356d096b5" />
 
 ### Fishapedia
 
-<img width="1512" alt="image" src="https://github.com/user-attachments/assets/a6a915d2-5cb8-40e2-abaf-31b6caa61d6b" />
+<img width="2424" height="1274" alt="image" src="https://github.com/user-attachments/assets/2b401323-ff6a-4d55-a981-a3500b4a6172" />
 
 <p align="right"><a href="#how-to-use-this-project">back to top ⬆️</a></p>
 
